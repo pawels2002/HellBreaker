@@ -1,0 +1,63 @@
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
+public class PlayerMovement : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+    public float rotationSpeed = 720f;
+    public float rotationStep = 90f;
+
+    public GameObject towerPrefab;
+    public Transform towerSpawnPoint; // Optional, or use transform.position
+
+    private Rigidbody rb;
+    private Vector3 inputDirection;
+    private float fixedY;
+
+    private Quaternion targetRotation;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        fixedY = transform.position.y;
+        targetRotation = transform.rotation;
+    }   
+
+    void Update()
+    {
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+
+        inputDirection = new Vector3(x, 0, z).normalized;
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            targetRotation *= Quaternion.Euler(0f, -rotationStep, 0f);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            targetRotation *= Quaternion.Euler(0f, rotationStep, 0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
+            spawnPos.y = 1f;
+            Instantiate(towerPrefab, spawnPos, Quaternion.identity);
+            Debug.Log("Tower spawned!");
+        }
+    }
+
+    void FixedUpdate()
+    {
+
+        rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+
+        Vector3 moveDir = transform.TransformDirection(inputDirection) * moveSpeed;
+        rb.linearVelocity = new Vector3(moveDir.x, rb.linearVelocity.y, moveDir.z);
+
+        Vector3 pos = rb.position;
+        pos.y = fixedY;
+        rb.position = pos;
+    }
+}

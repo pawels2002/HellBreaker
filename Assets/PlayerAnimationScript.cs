@@ -15,21 +15,6 @@ public class PlayerAnimationScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKey("w"))
-        {
-            animator.SetInteger("Direction", 1);
-        } else if (Input.GetKey("s"))
-        {
-            animator.SetInteger("Direction", 2);
-        }
-        else if (Input.GetKey("a") || Input.GetKey("d"))
-        {
-            animator.SetInteger("Direction", 3);
-        }
-       else
-        {
-            animator.SetInteger("Direction", 0);
-        }*/
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
@@ -56,7 +41,7 @@ public class PlayerAnimationScript : MonoBehaviour
                 else
                 {
                     GetComponent<SpriteRenderer>().flipX = true;
-                    //sr.sprite = walkLeftSprite;
+                    
                     animator.SetInteger("Direction", 3);
                 }
             }
@@ -73,7 +58,7 @@ public class PlayerAnimationScript : MonoBehaviour
                     
                     animator.SetInteger("Direction", 2);
                 }
-                //sr.sprite = (z > 0) ? walkUpSprite : walkDownSprite;
+                
             }
         }
     }

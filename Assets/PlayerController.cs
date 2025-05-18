@@ -1,8 +1,11 @@
+using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+
+    [SerializeField] private Animator _animator;
     public float moveSpeed = 5f;
     public float rotationSpeed = 720f;
     public float rotationStep = 90f;

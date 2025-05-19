@@ -21,8 +21,10 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void Awake()
     {
+        transform.rotation = Quaternion.Euler(45f, 0f, 0f);
         range = 20f;
         fireRate = 2f;
+        
     }
 
     protected virtual void Update()
@@ -43,7 +45,7 @@ public abstract class Tower : MonoBehaviour
 
         if (nearest != null)
         {
-            //FaceEnemy(nearest.transform, Camera.main);
+            FaceEnemy(nearest.transform);
 
             if (fireCountdown <= 0f)
             {
@@ -51,10 +53,6 @@ public abstract class Tower : MonoBehaviour
                 fireCountdown = 1f / fireRate;
             }
         }
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-
-        inputDirection = new Vector3(x, 0, z).normalized;
 
         fireCountdown -= Time.deltaTime;
     }
@@ -71,23 +69,17 @@ public abstract class Tower : MonoBehaviour
         Debug.Log("Bullet spawned at: " + firePoint.position);
     }
 
-    private void FaceEnemy(Transform target, Camera cam)
+    protected void FaceEnemy(Transform target)
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);
 
-        // Subtract camera's Z rotation so the facing is camera-relative
-        angle -= cam.transform.eulerAngles.z;
-
-        // Normalize angle to [-180, 180]
-        angle = Mathf.Repeat(angle + 180f, 360f) - 180f;
-
-        if (angle >= -45 && angle <= 45)
+        if (angle >= -45f && angle <= 45f)
         {
             spriteRenderer.sprite = frontView;
             spriteRenderer.flipX = false;
         }
-        else if (angle >= 135 || angle <= -135)
+        else if (angle >= 135f || angle <= -135f)
         {
             spriteRenderer.sprite = backView;
             spriteRenderer.flipX = false;
@@ -95,7 +87,7 @@ public abstract class Tower : MonoBehaviour
         else
         {
             spriteRenderer.sprite = sideView;
-            spriteRenderer.flipX = (direction.x < 0);
+            spriteRenderer.flipX = direction.x < 0f; // Flip based on direction
         }
     }
 

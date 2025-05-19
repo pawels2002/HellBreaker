@@ -56,14 +56,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
-            spawnPos.y = 1f;
+            spawnPos.y = 1.5f;
             Instantiate(cannonPrefab, spawnPos, Quaternion.identity);
             Debug.Log("Tower spawned!");
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
             Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
-            spawnPos.y = 1f;
+            spawnPos.y = 2f;
             Instantiate(magicCrystalPrefab, spawnPos, Quaternion.identity);
             Debug.Log("Tower spawned!");
         }

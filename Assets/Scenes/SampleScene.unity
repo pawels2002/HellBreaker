@@ -431,7 +431,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 720
   rotationStep: 90
-  towerPrefab: {fileID: 7667119126956644324, guid: da7b152531c037547a9db0d32c0a8e10, type: 3}
+  ballistaPrefab: {fileID: 0}
   towerSpawnPoint: {fileID: 0}
 --- !u!54 &580021624
 Rigidbody:

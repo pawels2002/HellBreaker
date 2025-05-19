@@ -4,7 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - towerPrefab: {fileID: 7667119126956644324, guid: da7b152531c037547a9db0d32c0a8e10, type: 3}
+  - _animator: {instanceID: 0}
+  - ballistaPrefab: {fileID: 9138076867316673307, guid: b6dd9e6cbc8a1a24d801e26e727425f8, type: 3}
+  - cannonPrefab: {fileID: 4877582705565090765, guid: b2237397555aff04fb79c5827c164f7d, type: 3}
   - towerSpawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}

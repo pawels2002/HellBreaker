@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed = 720f;
     public float rotationStep = 90f;
 
-    public GameObject towerPrefab;
+    public GameObject ballistaPrefab;
+    public GameObject cannonPrefab;
+    public GameObject magicCrystalPrefab;
     public Transform towerSpawnPoint; // Optional, or use transform.position
 
     private Rigidbody rb;
@@ -42,13 +44,30 @@ public class PlayerMovement : MonoBehaviour
             targetRotation *= Quaternion.Euler(0f, rotationStep, 0f);
         }
 
+
+        //-----ONLY FOR TESTING------
         if (Input.GetKeyDown(KeyCode.F))
         {
             Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
             spawnPos.y = 1f;
-            Instantiate(towerPrefab, spawnPos, Quaternion.identity);
+            Instantiate(ballistaPrefab, spawnPos, Quaternion.identity);
             Debug.Log("Tower spawned!");
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
+            spawnPos.y = 1f;
+            Instantiate(cannonPrefab, spawnPos, Quaternion.identity);
+            Debug.Log("Tower spawned!");
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
+            spawnPos.y = 1f;
+            Instantiate(magicCrystalPrefab, spawnPos, Quaternion.identity);
+            Debug.Log("Tower spawned!");
+        }
+        //-----ONLY FOR TESTING------\\
     }
 
     void FixedUpdate()

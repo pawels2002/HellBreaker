@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         fixedY = transform.position.y;
         targetRotation = transform.rotation;
+        //transform.rotation = Quaternion.Euler(45f, 0f, 0f); //should be done but walks inside grass
     }   
 
     void Update()

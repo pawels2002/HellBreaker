@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         target = Waypoints.points[0];
+        transform.rotation = Quaternion.Euler(45f, 0f, 0f);
     }
 
     private void Update()

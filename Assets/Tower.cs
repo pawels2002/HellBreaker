@@ -1,3 +1,4 @@
+//using System.Diagnostics;
 using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
@@ -45,10 +46,11 @@ public abstract class Tower : MonoBehaviour
 
         if (nearest != null)
         {
-            FaceEnemy(nearest.transform);
+            
 
             if (fireCountdown <= 0f)
             {
+                FaceEnemy(nearest.transform);
                 Shoot(nearest.transform);
                 fireCountdown = 1f / fireRate;
             }
@@ -73,7 +75,7 @@ public abstract class Tower : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);
-
+        Debug.Log("Angle to enemy: " + angle);
         if (angle >= -45f && angle <= 45f)
         {
             spriteRenderer.sprite = frontView;

@@ -1,11 +1,13 @@
 //using System.Diagnostics;
 using UnityEngine;
 
+
 public abstract class Tower : MonoBehaviour
 {
     [Header("Tower Stats")]
     public float range;
     public float fireRate;
+    public int cost;
 
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
@@ -19,13 +21,18 @@ public abstract class Tower : MonoBehaviour
     private Vector3 inputDirection;
 
     protected float fireCountdown = 0f;
-
     protected virtual void Awake()
     {
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
-        range = 20f;
-        fireRate = 2f;
-        
+        if(Money.Instance.GetMoney() >= cost)
+        {
+            Money.Instance.RemoveMoney(cost);
+        }
+        else
+        {
+            Debug.Log("Not enough money to build this tower!");
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void Update()
@@ -71,7 +78,7 @@ public abstract class Tower : MonoBehaviour
         Debug.Log("Bullet spawned at: " + firePoint.position);
     }
 
-    protected void FaceEnemy(Transform target)
+    protected void FaceEnemy(Transform target) //fix this - only rotates left and right
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);

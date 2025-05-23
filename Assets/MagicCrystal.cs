@@ -1,14 +1,16 @@
-using System.Diagnostics;
+//using System.CodeDom;
+//using System.Diagnostics;
 using UnityEngine;
 
 public class MagicCrystal : Tower
 {
 
     protected override void Awake()
-    {
+    { 
+        range = 30f;
+        fireRate = 2.5f;
+        cost = 200;
         base.Awake();
-        range = 20f;
-        fireRate = 0.25f;
     }
 
 

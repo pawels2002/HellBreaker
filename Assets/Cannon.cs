@@ -1,3 +1,4 @@
+using System.CodeDom;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -6,9 +7,10 @@ public class Cannon : Tower
 
     protected override void Awake()
     {
-        base.Awake();
-        range = 5f;
+        range = 10f;
         fireRate = 0.5f;
+        cost = 50;
+        base.Awake();
     }
 
 

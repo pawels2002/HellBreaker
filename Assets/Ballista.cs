@@ -1,14 +1,16 @@
 using UnityEngine;
 using System.Diagnostics;
+using System.CodeDom;
 
 public class Ballista : Tower
 {
 
     protected override void Awake()
     {
-        base.Awake();
-        range = 10f;
+        range = 20f;
         fireRate = 1f;
+        cost = 100;
+        base.Awake();
     }
     
 

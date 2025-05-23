@@ -7,9 +7,9 @@ public class Cannon : Tower
 
     protected override void Awake()
     {
-        range = 10f;
-        fireRate = 0.5f;
-        cost = 50;
+        range = 10f; //this doesnt work - had to set it in unity -> inspector
+        fireRate = 0.5f; //this doesnt work - had to set it in unity -> inspector
+        cost = 50;  //this doesnt work - had to set it in unity -> inspector
         base.Awake();
     }
 

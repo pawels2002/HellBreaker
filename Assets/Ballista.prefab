@@ -132,8 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb67c4aa7af4b94c88815e54f6e1c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
-  fireRate: 1
+  range: 20
+  fireRate: 1.5
+  cost: 100
   bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
   firePoint: {fileID: 7928805036872312003}
   spriteRenderer: {fileID: 8097055598876585737}

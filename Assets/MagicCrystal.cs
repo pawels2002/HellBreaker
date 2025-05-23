@@ -7,9 +7,9 @@ public class MagicCrystal : Tower
 
     protected override void Awake()
     { 
-        range = 30f;
-        fireRate = 2.5f;
-        cost = 200;
+        range = 30f; //this doesnt work - had to set it in unity -> inspector
+        fireRate = 2.5f; //this doesnt work - had to set it in unity -> inspector
+        cost = 200; //this doesnt work - had to set it in unity -> inspector
         base.Awake();
     }
 

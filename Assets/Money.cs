@@ -19,7 +19,7 @@ public class Money : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Money: " + money); // Debug log to check the money value
+ //       Debug.Log("Money: " + money); // Debug log to check the money value
         moneyText.text = "Money: " + money;
     }
 
@@ -31,7 +31,7 @@ public class Money : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        Debug.Log("Added Money: " + amount); // Debug log to check the added amount
+ //       Debug.Log("Added Money: " + amount); // Debug log to check the added amount
     }
 
     public void RemoveMoney(int amount)

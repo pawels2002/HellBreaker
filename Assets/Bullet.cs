@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour
     {
         // Optionally deal damage here
         Destroy(target.gameObject); // Just destroy for demo
+        Money.Instance.AddMoney(5); //adding money - now it always adds. Hit detection should be implemented
         Destroy(gameObject);
     }
 }

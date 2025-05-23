@@ -101,16 +101,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93db0735acd14d4489fcbf7e84a8631b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 5
+  range: 10
   fireRate: 1
-  cost: 0
+  cost: 50
   bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
   firePoint: {fileID: 1945120321811574708}
   spriteRenderer: {fileID: 2329953236302287475}
   frontView: {fileID: 21300000, guid: 7fbdb813845a321409bebbcb135f6c54, type: 3}
   backView: {fileID: 21300000, guid: 0e50ee1f352e55f4fa076004c8943def, type: 3}
   sideView: {fileID: 21300000, guid: 0f1e0cd1681649a4ea8a80064396de3b, type: 3}
-  moneySystem: {fileID: 3569283488428150950, guid: 992b8eced711e3149b430b6798523c49, type: 3}
 --- !u!1001 &8687440764778428507
 PrefabInstance:
   m_ObjectHideFlags: 0

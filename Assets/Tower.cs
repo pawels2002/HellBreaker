@@ -24,15 +24,7 @@ public abstract class Tower : MonoBehaviour
     protected virtual void Awake()
     {
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
-        if(Money.Instance.GetMoney() >= cost)
-        {
-            Money.Instance.RemoveMoney(cost);
-        }
-        else
-        {
-            Debug.Log("Not enough money to build this tower!");
-            Destroy(gameObject);
-        }
+        
     }
 
     protected virtual void Update()
@@ -75,14 +67,14 @@ public abstract class Tower : MonoBehaviour
             bullet.Seek(target);
         }
 
-        Debug.Log("Bullet spawned at: " + firePoint.position);
+        //Debug.Log("Bullet spawned at: " + firePoint.position);
     }
 
     protected void FaceEnemy(Transform target) //fix this - only rotates left and right
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);
-        Debug.Log("Angle to enemy: " + angle);
+    //    Debug.Log("Angle to enemy: " + angle);
         if (angle >= -45f && angle <= 45f)
         {
             spriteRenderer.sprite = frontView;

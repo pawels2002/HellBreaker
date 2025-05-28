@@ -1,3 +1,4 @@
+//using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerAnimationScript : MonoBehaviour
@@ -36,12 +37,13 @@ public class PlayerAnimationScript : MonoBehaviour
                 {
                     GetComponent<SpriteRenderer>().flipX = false;
                     //sr.sprite = walkRightSprite;
+
                     animator.SetInteger("Direction", 3);
                 }
                 else
                 {
                     GetComponent<SpriteRenderer>().flipX = true;
-                    
+
                     animator.SetInteger("Direction", 3);
                 }
             }
@@ -50,12 +52,12 @@ public class PlayerAnimationScript : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = false;
                 if (z > 0)
                 {
-                    
+
                     animator.SetInteger("Direction", 1);
                 }
                 else
                 {
-                    
+
                     animator.SetInteger("Direction", 2);
                 }
                 

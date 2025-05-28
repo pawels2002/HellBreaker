@@ -74,7 +74,7 @@ public abstract class Tower : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);
-    //    Debug.Log("Angle to enemy: " + angle);
+        Debug.Log("Angle to enemy: " + angle);
         if (angle >= -45f && angle <= 45f)
         {
             spriteRenderer.sprite = frontView;

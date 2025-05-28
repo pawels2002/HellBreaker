@@ -7,8 +7,8 @@ public class Spawner : MonoBehaviour
 
     public Transform spawnPoint;
 
-    public float timeBetweenWaves = 5f;
-    private float countdown = 2f;
+    public float timeBetweenWaves = 105f;
+    private float countdown = 3f;
 
     private int waveNumber = 0;
 
@@ -38,7 +38,6 @@ public class Spawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Debug.Log("Wave");
         Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 }

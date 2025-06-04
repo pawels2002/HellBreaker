@@ -32,6 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7399898462259725313}
   - {fileID: 3066193198666255155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
@@ -105,12 +106,17 @@ MonoBehaviour:
   range: 2
   fireRate: 70
   cost: 600
+  level: 0
+  upgradeCost: 0
   bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
   firePoint: {fileID: 3066193198666255155}
   spriteRenderer: {fileID: 2289752985343829059}
   frontView: {fileID: 21300000, guid: accb9d9656dde2044896ce1dfee0aaa3, type: 3}
   backView: {fileID: 21300000, guid: accb9d9656dde2044896ce1dfee0aaa3, type: 3}
   sideView: {fileID: 21300000, guid: accb9d9656dde2044896ce1dfee0aaa3, type: 3}
+  upgradeButtonUI: {fileID: 806794631329263849, guid: 7b129e4868fad0343a212f07a32c42e2, type: 3}
+  upgradeTowerPoint: {fileID: 7399898462259725313}
+  upgradeButtonDisplayRange: 3
 --- !u!65 &1751988360103631219
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -132,6 +138,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.48, y: 2.11, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3486999395680515551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7399898462259725313}
+  m_Layer: 0
+  m_Name: UpgradeButtonPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7399898462259725313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3486999395680515551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.316, z: -0.187}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 744437736393661420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5259297819413306588
 PrefabInstance:
   m_ObjectHideFlags: 0

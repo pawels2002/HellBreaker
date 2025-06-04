@@ -1,4 +1,5 @@
-//using System.Diagnostics;
+
+using System.Security.Cryptography;
 using UnityEngine;
 
 
@@ -8,10 +9,13 @@ public abstract class Tower : MonoBehaviour
     public float range;
     public float fireRate;
     public int cost;
+    public int level;
+    public int upgradeCost;
 
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform firePoint;
+    
 
     [Header("Sprites")]
     public SpriteRenderer spriteRenderer;
@@ -20,11 +24,39 @@ public abstract class Tower : MonoBehaviour
     public Sprite sideView;
     private Vector3 inputDirection;
 
+    [Header("UI")]
+    public GameObject upgradeButtonUI;
+    public Transform upgradeTowerPoint;
+    public float upgradeButtonDisplayRange = 3f;
+    private bool upgradeUIActive = false;
+    private Transform playerTransform;
+
     protected float fireCountdown = 0f;
     protected virtual void Awake()
     {
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
-        
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        upgradeButtonUI = Instantiate(upgradeButtonUI, transform.position, Quaternion.identity);
+        upgradeButtonUI.transform.position = upgradeTowerPoint.position;
+        upgradeButtonUI.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
+        if (playerTransform == null)
+        {
+         //  Debug.LogError("Player transform not found! Make sure the player has the 'Player' tag.");
+        }
+        else
+        {
+        //    Debug.Log("Player transform found: " + playerTransform.name);
+        }
+
+        if (upgradeButtonUI != null)
+        {
+            Debug.Log("Upgrade button UI found: " + upgradeButtonUI.name);
+            upgradeButtonUI.SetActive(false);
+        }
+        else
+        {
+        //    Debug.LogError("Upgrade button UI not assigned in the inspector!");
+        }
     }
 
     protected virtual void Update()
@@ -57,7 +89,36 @@ public abstract class Tower : MonoBehaviour
         }
 
         fireCountdown -= Time.deltaTime;
-    }
+
+            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null)
+            {
+                float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+                //Debug.Log("Distance to player: " + distToPlayer);
+                if (distToPlayer <= upgradeButtonDisplayRange)
+                {
+                    if (!upgradeUIActive)
+                    {
+                        
+                        upgradeButtonUI.SetActive(true);
+                       // Debug.Log("Upgrade UI activated for tower: " + gameObject.name);
+                        upgradeUIActive = true;
+                    }
+                    // Move upgrade button UI to the upgradeTowerPoint position
+                    //upgradeButtonUI.transform.position = upgradeTowerPoint.position;
+                  //  Debug.Log("Upgrade button UI position set to: " + upgradeTowerPoint.position);
+                    //upgradeButtonUI.transform.rotation = Quaternion.identity; // Optional: Keep UI upright
+                }
+                else
+                {
+                    if (upgradeUIActive)
+                    {
+                        upgradeButtonUI.SetActive(false);
+                        upgradeUIActive = false;
+                      //  Debug.Log("Upgrade UI deactivated for tower: " + gameObject.name);
+                    }
+                }
+            }
+        }
     }
 
     protected virtual void Shoot(Transform target)
@@ -93,6 +154,5 @@ public abstract class Tower : MonoBehaviour
             spriteRenderer.flipX = direction.x < 0f; // Flip based on direction
         }
     }
-
-
+  
 }

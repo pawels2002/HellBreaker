@@ -10,6 +10,8 @@ public class Cannon : Tower
         range = 3f; //this doesnt work - had to set it in unity -> inspector
         fireRate = 0.75f; //this doesnt work - had to set it in unity -> inspector
         cost = 50;  //this doesnt work - had to set it in unity -> inspector
+        level = 0;
+        upgradeCost = 50; 
         base.Awake();
     }
 

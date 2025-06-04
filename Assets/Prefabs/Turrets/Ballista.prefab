@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1157233165136682007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6638598842024816640}
+  m_Layer: 0
+  m_Name: UpgradeButtonPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6638598842024816640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157233165136682007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.93, z: -0.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 500190684569182058}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5159420701949262236
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 5159420701949262236}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.99, y: 1.32, z: 0}
+  m_LocalPosition: {x: 0.46, y: 1.28, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -64,6 +95,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7928805036872312003}
+  - {fileID: 6638598842024816640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!212 &8097055598876585737
@@ -136,12 +168,17 @@ MonoBehaviour:
   range: 4
   fireRate: 1.5
   cost: 100
+  level: 0
+  upgradeCost: 0
   bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
   firePoint: {fileID: 7928805036872312003}
   spriteRenderer: {fileID: 8097055598876585737}
   frontView: {fileID: 21300000, guid: b86cd30a986dfb04594a294ded902e0e, type: 3}
   backView: {fileID: 21300000, guid: 3fc55ce83bef84343b9d68de76d36a95, type: 3}
   sideView: {fileID: 21300000, guid: 67e85c5666c6f65459522d96301c8fd2, type: 3}
+  upgradeButtonUI: {fileID: 806794631329263849, guid: 7b129e4868fad0343a212f07a32c42e2, type: 3}
+  upgradeTowerPoint: {fileID: 6638598842024816640}
+  upgradeButtonDisplayRange: 3
 --- !u!65 &5403359646082403561
 BoxCollider:
   m_ObjectHideFlags: 0

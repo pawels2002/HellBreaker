@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 500190684569182058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6908759634894501708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4889195367144439650}
+  m_Layer: 0
+  m_Name: UpgradeButtonPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4889195367144439650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6908759634894501708}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.38, y: 3.19, z: -0.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 500190684569182058}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9138076867316673307
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +94,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4889195367144439650}
   - {fileID: 7928805036872312003}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
@@ -136,12 +168,17 @@ MonoBehaviour:
   range: 10
   fireRate: 0.5
   cost: 150
+  level: 0
+  upgradeCost: 0
   bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
   firePoint: {fileID: 7928805036872312003}
   spriteRenderer: {fileID: 8097055598876585737}
   frontView: {fileID: 21300000, guid: 845a80e37d371ba40a7d1bc1808724cf, type: 3}
   backView: {fileID: 21300000, guid: 80aa5d11a852a9d45974a958ed2c9104, type: 3}
   sideView: {fileID: 21300000, guid: 8fe804a19e1c73b4f88ca49a21b2d6c6, type: 3}
+  upgradeButtonUI: {fileID: 806794631329263849, guid: 7b129e4868fad0343a212f07a32c42e2, type: 3}
+  upgradeTowerPoint: {fileID: 4889195367144439650}
+  upgradeButtonDisplayRange: 3
 --- !u!65 &4257160553631685776
 BoxCollider:
   m_ObjectHideFlags: 0

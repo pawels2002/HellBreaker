@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 500190684569182058}
   - component: {fileID: 8097055598876585737}
   - component: {fileID: -2898847435919280293}
+  - component: {fileID: 5403359646082403561}
   m_Layer: 0
   m_Name: Ballista
   m_TagString: Untagged
@@ -141,3 +142,24 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: b86cd30a986dfb04594a294ded902e0e, type: 3}
   backView: {fileID: 21300000, guid: 3fc55ce83bef84343b9d68de76d36a95, type: 3}
   sideView: {fileID: 21300000, guid: 67e85c5666c6f65459522d96301c8fd2, type: 3}
+--- !u!65 &5403359646082403561
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9138076867316673307}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.6, y: 3.11, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}

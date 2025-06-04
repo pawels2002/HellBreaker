@@ -5,6 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - selectedTowerPrefab: {instanceID: 0}
+  - progressBarUI: {fileID: 7017732931196636193, guid: 4d6b1c414ec0b3d4ca861d02eae97f0a, type: 3}
+  - progressBar: {fileID: 6840150396934501361, guid: 32e6cf46c3b45004fab68c822cd85b3c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

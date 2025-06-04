@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float fixedY;
 
     [SerializeField] private Build buildSystem;
+    
     private Quaternion targetRotation;
     [SerializeField] private GameObject radialBuildMenu;
     void Awake()
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         targetRotation = transform.rotation;
         //transform.rotation = Quaternion.Euler(45f, 0f, 0f); //should be done but walks inside grass
        // buildSystem = FindObjectOfType<Build>();
+
     }   
 
     void Update()

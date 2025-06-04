@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7424426423305019099}
   - component: {fileID: 2329953236302287475}
   - component: {fileID: -7208232380582498505}
+  - component: {fileID: 8702602639008258165}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -110,6 +111,27 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: bc218c1f514871b449ab19fac6fd67dd, type: 3}
   backView: {fileID: 21300000, guid: b55eea3c1c4cba24c9d84861457c6b9c, type: 3}
   sideView: {fileID: 21300000, guid: 1ddd84846335e2a459620d373f91f1b7, type: 3}
+--- !u!65 &8702602639008258165
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877582705565090765}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.92, y: 4.03, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &8687440764778428507
 PrefabInstance:
   m_ObjectHideFlags: 0

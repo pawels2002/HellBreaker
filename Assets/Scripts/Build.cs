@@ -29,6 +29,17 @@ public class Build : MonoBehaviour
             return;
         }
 
+        float checkRadius = 0.5f; // Adjust based on tower size
+        Collider[] colliders = Physics.OverlapSphere(spawnPos, checkRadius);
+        foreach (Collider col in colliders)
+        {
+            if (col.GetComponent<Tower>() != null)
+            {
+                Debug.Log("There is already a tower at this location!"); // change to UI
+                return;
+            }
+        }
+
 
         int cost = selectedTowerPrefab.GetComponent<Tower>().cost;
 

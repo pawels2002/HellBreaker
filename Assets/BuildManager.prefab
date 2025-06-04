@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 264ef8fcc76845f45b2c45a47c8efef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedTowerPrefab: {fileID: 0}
+  selectedTowerPrefab: {fileID: 4877582705565090765, guid: b2237397555aff04fb79c5827c164f7d, type: 3}
+  buildProgressBar: {fileID: 6840150396934501361, guid: 32e6cf46c3b45004fab68c822cd85b3c, type: 3}

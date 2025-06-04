@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private Animator _animator;
+
     public float moveSpeed = 5f;
     public float rotationSpeed = 720f;
     public float rotationStep = 90f;
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Build buildSystem;
     private Quaternion targetRotation;
-
+    [SerializeField] private GameObject radialBuildMenu;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,6 +43,22 @@ public class PlayerMovement : MonoBehaviour
             inputDirection = new Vector3(x, 0, z).normalized;
             Vector3 spawnPos = transform.position + transform.forward * 2f; // 2 units in front
             spawnPos.y = 1f;
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                //if radialBuildMenu is active, else
+                if (radialBuildMenu.activeSelf)
+                {
+                    radialBuildMenu.SetActive(false);
+                    Time.timeScale = 1.0f;
+                }
+                else
+                {
+                    radialBuildMenu.SetActive(true);
+                    Time.timeScale = 0.5f;
+                }
+                //radialBuildMenu.SetActive(!radialBuildMenu.activeSelf);
+               // Time.timeScale = 0.5f;
+            }
             if (Input.GetKeyDown(KeyCode.E))
             {
                 buildSystem.BuildTower(spawnPos);

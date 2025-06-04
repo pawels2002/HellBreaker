@@ -20,7 +20,7 @@ public class Money : MonoBehaviour
     void Update()
     {
  //       Debug.Log("Money: " + money); // Debug log to check the money value
-        moneyText.text = "Money: " + money;
+        moneyText.text = money.ToString();
     }
 
     public int GetMoney()

@@ -7,8 +7,8 @@ public class Ballista : Tower
 
     protected override void Awake()
     {
-        range = 20f; //this doesnt work - had to set it in unity -> inspector
-        fireRate = 1f; //this doesnt work - had to set it in unity -> inspector
+        range = 4f; //this doesnt work - had to set it in unity -> inspector
+        fireRate = 1.5f; //this doesnt work - had to set it in unity -> inspector
         cost = 100; //this doesnt work - had to set it in unity -> inspector
         base.Awake();
     }

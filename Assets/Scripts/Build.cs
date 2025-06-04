@@ -1,18 +1,23 @@
 
 using System.Collections.Specialized;
-
+using UnityEngine.UI;
 using UnityEngine;
+//using static System.Net.Mime.MediaTypeNames;
 
 public class Build : MonoBehaviour
 {
     public GameObject selectedTowerPrefab;
 
-
-
     public void SetTowerToBuild(GameObject towerPrefab)
     {
         selectedTowerPrefab = towerPrefab;
-        Debug.Log("Selected tower: " + towerPrefab.name);
+        GameObject selectedTowerImage = GameObject.Find("CurrentlySelectedTurretImage");
+        selectedTowerImage.SetActive(true);
+        Sprite towerSprite = towerPrefab.GetComponent<Tower>().frontView;
+        selectedTowerImage.GetComponent<Image>().sprite = towerSprite;
+        GameObject radialBuildMenu = GameObject.Find("RadialBuyMenuPanel");
+        radialBuildMenu.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
 

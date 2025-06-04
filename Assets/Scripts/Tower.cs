@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
+    [Header("Animation")]
+    public Animator animator;
+
     [Header("Tower Stats")]
     public float range;
     public float fireRate;
@@ -34,6 +37,8 @@ public abstract class Tower : MonoBehaviour
     protected float fireCountdown = 0f;
     protected virtual void Awake()
     {
+        if (animator == null)
+            animator = GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         upgradeButtonUI = Instantiate(upgradeButtonUI, transform.position, Quaternion.identity);
@@ -82,6 +87,7 @@ public abstract class Tower : MonoBehaviour
 
             if (fireCountdown <= 0f)
             {
+               
                 FaceEnemy(nearest.transform);
                 Shoot(nearest.transform);
                 fireCountdown = 1f / fireRate;

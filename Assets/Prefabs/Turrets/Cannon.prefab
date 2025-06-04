@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93db0735acd14d4489fcbf7e84a8631b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7508370073482062355}
   range: 2
   fireRate: 0.75
   cost: 50
@@ -237,11 +238,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7093602588295518191, guid: bc80483f6b967224fba6882553397607, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.65
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 7093602588295518191, guid: bc80483f6b967224fba6882553397607, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.11
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 7093602588295518191, guid: bc80483f6b967224fba6882553397607, type: 3}
       propertyPath: m_LocalPosition.z

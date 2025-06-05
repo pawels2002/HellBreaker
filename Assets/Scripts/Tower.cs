@@ -1,6 +1,7 @@
-
+using System;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public abstract class Tower : MonoBehaviour
@@ -44,18 +45,29 @@ public abstract class Tower : MonoBehaviour
         upgradeButtonUI = Instantiate(upgradeButtonUI, transform.position, Quaternion.identity);
         upgradeButtonUI.transform.position = upgradeTowerPoint.position;
         upgradeButtonUI.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
-        if (playerTransform == null)
+        Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
+        if (btn != null)
         {
-         //  Debug.LogError("Player transform not found! Make sure the player has the 'Player' tag.");
+            Debug.Log("Setting the listener");
+            btn.onClick.AddListener(OnButtonClick);
         }
         else
         {
-        //    Debug.Log("Player transform found: " + playerTransform.name);
+            Debug.Log("Couldnt find button");
+        }
+
+        if (playerTransform == null)
+        {
+            //  Debug.LogError("Player transform not found! Make sure the player has the 'Player' tag.");
+        }
+        else
+        {
+            //    Debug.Log("Player transform found: " + playerTransform.name);
         }
 
         if (upgradeButtonUI != null)
         {
-            Debug.Log("Upgrade button UI found: " + upgradeButtonUI.name);
+    //        Debug.Log("Upgrade button UI found: " + upgradeButtonUI.name);
             upgradeButtonUI.SetActive(false);
         }
         else
@@ -96,7 +108,7 @@ public abstract class Tower : MonoBehaviour
 
         fireCountdown -= Time.deltaTime;
 
-            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null)
+            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null && level != 3)
             {
                 float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
                 //Debug.Log("Distance to player: " + distToPlayer);
@@ -143,7 +155,7 @@ public abstract class Tower : MonoBehaviour
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);
-        Debug.Log("Angle to enemy: " + angle);
+       // Debug.Log("Angle to enemy: " + angle);
         if (angle >= -45f && angle <= 45f)
         {
             spriteRenderer.sprite = frontView;
@@ -160,5 +172,85 @@ public abstract class Tower : MonoBehaviour
             spriteRenderer.flipX = direction.x < 0f; // Flip based on direction
         }
     }
+
+    protected void upgradeTower()
+    {
+        switch (level)
+        {
+            case 0:  
+                if(upgradeCost < Money.Instance.GetMoney())
+                {
+                    Money.Instance.RemoveMoney(upgradeCost);
+                    improveTowerStatistics();
+                    upgradeCost += 100;
+                    //add star
+                    level++;
+                }
+                else
+                {
+                    Debug.Log("Not enough money to upgrade the tower.");
+                }
+                break;
+            case 1:
+                if (upgradeCost < Money.Instance.GetMoney())
+                {
+                    Money.Instance.RemoveMoney(upgradeCost);
+                    improveTowerStatistics();
+                    upgradeCost += 200;
+                    //add star
+                    level++;
+                }
+                else
+                {
+                    Debug.Log("Not enough money to upgrade the tower.");
+                }
+                break;
+            case 2:
+                if (upgradeCost < Money.Instance.GetMoney())
+                {
+                    Money.Instance.RemoveMoney(upgradeCost);
+                    improveTowerStatistics();
+                    upgradeCost += 300;
+                    //add star
+                    upgradeButtonUI.SetActive(false);
+                    upgradeUIActive = false;
+                    level++;
+                }
+                else
+                {
+                    Debug.Log("Not enough money to upgrade the tower.");
+                }
+                break;
+            default:
+                Debug.Log("This tower is upgraded to maximum");
+                break;
+        }
+    }
+
+    protected void improveTowerStatistics()
+    {
+        switch(level)
+        {
+            case 0:
+                range += 0.25f;
+                fireRate += 0.25f;
+                break;
+             case 1:
+                range += 0.5f;
+                fireRate += 0.5f;
+                break;
+             case 2:
+                range += 1f;
+                fireRate += 1f;
+                break;
+        }
+    }
+
+    void OnButtonClick()
+    {
+        Debug.Log("Upgrade button clicked!");
+        upgradeTower();
+    }
+
   
 }

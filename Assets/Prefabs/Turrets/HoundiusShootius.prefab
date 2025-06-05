@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 8097055598876585737}
   - component: {fileID: 1262005513150492357}
   - component: {fileID: 2469555205985295604}
+  - component: {fileID: 3245939566499414440}
   m_Layer: 0
   m_Name: HoundiusShootius
   m_TagString: Untagged
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139e6f322a7160d48a10e8d73fb3fb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 3245939566499414440}
   range: 4
   fireRate: 2
   cost: 300
@@ -200,3 +202,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.17, y: 4.51, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &3245939566499414440
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9138076867316673307}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6418ce39ee4cbae45b375196f320e4ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -5,12 +5,11 @@ using System.Collections;
 
 public class Cannon : Tower
 {
-
     protected override void Awake()
     {
-        range = 3f; //this doesnt work - had to set it in unity -> inspector
-        fireRate = 0.75f; //this doesnt work - had to set it in unity -> inspector
-        cost = 50;  //this doesnt work - had to set it in unity -> inspector
+        range = 3f;
+        fireRate = 0.75f; 
+        cost = 50;  
         level = 0;
         upgradeCost = 50; 
         base.Awake();

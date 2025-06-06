@@ -4,7 +4,6 @@ using System.CodeDom;
 
 public class Catapult : Tower
 {
-
     protected override void Awake()
     {
         range = 10f; 
@@ -15,12 +14,10 @@ public class Catapult : Tower
         base.Awake();
     }
 
-
-
     // You can override Shoot() or Update() to customize behavior
     protected override void Shoot(Transform target)
     {
         base.Shoot(target); // or customize the behavior
-        //Debug.Log("Ballista fired!");
+        //Debug.Log("Catapult fired!");
     }
 }

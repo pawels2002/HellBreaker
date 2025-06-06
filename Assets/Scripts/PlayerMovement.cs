@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour
         fixedY = transform.position.y;
         targetRotation = transform.rotation;
         //transform.rotation = Quaternion.Euler(45f, 0f, 0f); //should be done but walks inside grass
-       // buildSystem = FindObjectOfType<Build>();
-
+        //buildSystem = FindObjectOfType<Build>();
     }   
 
     void Update()
@@ -59,11 +58,15 @@ public class PlayerMovement : MonoBehaviour
                     Time.timeScale = 0.5f;
                 }
                 //radialBuildMenu.SetActive(!radialBuildMenu.activeSelf);
-               // Time.timeScale = 0.5f;
+                //Time.timeScale = 0.5f;
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
                 buildSystem.BuildTower(spawnPos);
+            }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                Money.Instance.AddMoney(1000);  //added a cheat code, so you can test the towers without grinding for money
             }
             //since we dont care about rotating camera i commented this out
             /*

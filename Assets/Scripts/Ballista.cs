@@ -4,7 +4,6 @@ using System.CodeDom;
 
 public class Ballista : Tower
 {
-
     protected override void Awake()
     {
         range = 4f; 
@@ -14,10 +13,8 @@ public class Ballista : Tower
         upgradeCost = 100; 
         base.Awake();
     }
-    
 
-
-    // You can override Shoot() or Update() to customize behavior
+   // You can override Shoot() or Update() to customize behavior
     protected override void Shoot(Transform target)
     {
         base.Shoot(target); // or customize the behavior

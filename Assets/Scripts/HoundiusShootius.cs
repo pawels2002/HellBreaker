@@ -5,7 +5,6 @@ using System.Collections;
 
 public class HoundiusShootius : Tower
 {
-
     protected override void Awake()
     {
         range = 4f; 
@@ -15,8 +14,6 @@ public class HoundiusShootius : Tower
         upgradeCost = 200;
         base.Awake();
     }
-
-
 
     protected override void Shoot(Transform target)
     {

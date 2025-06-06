@@ -1,7 +1,8 @@
 using System;
-using System.Security.Cryptography;
+//using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public abstract class Tower : MonoBehaviour
@@ -36,15 +37,17 @@ public abstract class Tower : MonoBehaviour
     private Transform playerTransform;
 
     protected float fireCountdown = 0f;
+    private Vector3 vec3; //delete
+
     protected virtual void Awake()
     {
         if (animator == null)
             animator = GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
-        upgradeButtonUI = Instantiate(upgradeButtonUI, transform.position, Quaternion.identity);
-        upgradeButtonUI.transform.position = upgradeTowerPoint.position;
-        upgradeButtonUI.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
+        upgradeButtonUI = Instantiate(upgradeButtonUI, vec3, Quaternion.identity);
+        //   upgradeButtonUI.transform.position = upgradeTowerPoint.position;
+        //   upgradeButtonUI.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
         Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
         if (btn != null)
         {
@@ -116,7 +119,8 @@ public abstract class Tower : MonoBehaviour
                 {
                     if (!upgradeUIActive)
                     {
-                        
+                        Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
+                        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
                         upgradeButtonUI.SetActive(true);
                        // Debug.Log("Upgrade UI activated for tower: " + gameObject.name);
                         upgradeUIActive = true;
@@ -173,7 +177,7 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
-    protected void upgradeTower()
+    public void upgradeTower()
     {
         switch (level)
         {
@@ -227,7 +231,7 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
-    protected void improveTowerStatistics()
+    public void improveTowerStatistics()
     {
         switch(level)
         {
@@ -246,10 +250,12 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
-    void OnButtonClick()
+    public void OnButtonClick()
     {
         Debug.Log("Upgrade button clicked!");
         upgradeTower();
+        Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
+        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
     }
 
   

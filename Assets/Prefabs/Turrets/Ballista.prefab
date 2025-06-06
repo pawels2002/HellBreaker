@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb67c4aa7af4b94c88815e54f6e1c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   range: 4
   fireRate: 1.5
   cost: 100
@@ -176,7 +177,7 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: b86cd30a986dfb04594a294ded902e0e, type: 3}
   backView: {fileID: 21300000, guid: 3fc55ce83bef84343b9d68de76d36a95, type: 3}
   sideView: {fileID: 21300000, guid: 67e85c5666c6f65459522d96301c8fd2, type: 3}
-  upgradeButtonUI: {fileID: 806794631329263849, guid: 7b129e4868fad0343a212f07a32c42e2, type: 3}
+  upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 6638598842024816640}
   upgradeButtonDisplayRange: 3
 --- !u!65 &5403359646082403561

@@ -178,7 +178,7 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: f01b1cde75a179541a29e9beec7e6348, type: 3}
   backView: {fileID: 21300000, guid: f01b1cde75a179541a29e9beec7e6348, type: 3}
   sideView: {fileID: 21300000, guid: f01b1cde75a179541a29e9beec7e6348, type: 3}
-  upgradeButtonUI: {fileID: 806794631329263849, guid: 7b129e4868fad0343a212f07a32c42e2, type: 3}
+  upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 8212653050797928550}
   upgradeButtonDisplayRange: 3
 --- !u!65 &2469555205985295604

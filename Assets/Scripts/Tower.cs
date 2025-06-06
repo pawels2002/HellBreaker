@@ -177,61 +177,47 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
+    protected void levelUpTowerAndIncreaseUpgradeCostBy(int increaseUpgradeCostBy)
+    {
+        if (upgradeCost < Money.Instance.GetMoney())
+        {
+            Money.Instance.RemoveMoney(upgradeCost);
+            improveTowerStatistics();
+            upgradeCost += increaseUpgradeCostBy;
+            //add star
+            level++;
+            if (level == 3)
+            {
+                upgradeButtonUI.SetActive(false);
+                        upgradeUIActive = false;
+            }
+        }
+        else
+        {
+            Debug.Log("Not enough money to upgrade the tower.");
+        }
+    }
+
     public void upgradeTower()
     {
         switch (level)
         {
-            case 0:  
-                if(upgradeCost < Money.Instance.GetMoney())
-                {
-                    Money.Instance.RemoveMoney(upgradeCost);
-                    improveTowerStatistics();
-                    upgradeCost += 100;
-                    //add star
-                    level++;
-                }
-                else
-                {
-                    Debug.Log("Not enough money to upgrade the tower.");
-                }
+            case 0:
+                levelUpTowerAndIncreaseUpgradeCostBy(100);
                 break;
             case 1:
-                if (upgradeCost < Money.Instance.GetMoney())
-                {
-                    Money.Instance.RemoveMoney(upgradeCost);
-                    improveTowerStatistics();
-                    upgradeCost += 200;
-                    //add star
-                    level++;
-                }
-                else
-                {
-                    Debug.Log("Not enough money to upgrade the tower.");
-                }
+                levelUpTowerAndIncreaseUpgradeCostBy(200);
                 break;
             case 2:
-                if (upgradeCost < Money.Instance.GetMoney())
-                {
-                    Money.Instance.RemoveMoney(upgradeCost);
-                    improveTowerStatistics();
-                    upgradeCost += 300;
-                    //add star
-                    upgradeButtonUI.SetActive(false);
-                    upgradeUIActive = false;
-                    level++;
-                }
-                else
-                {
-                    Debug.Log("Not enough money to upgrade the tower.");
-                }
+                levelUpTowerAndIncreaseUpgradeCostBy(0);
                 break;
             default:
-                Debug.Log("This tower is upgraded to maximum");
+                Debug.Log("This tower is upgraded to maximum"); //this should never be triggered
                 break;
         }
     }
 
-    public void improveTowerStatistics()
+    protected void improveTowerStatistics()
     {
         switch(level)
         {

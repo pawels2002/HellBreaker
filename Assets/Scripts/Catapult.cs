@@ -7,9 +7,11 @@ public class Catapult : Tower
 
     protected override void Awake()
     {
-        range = 10f; //this doesnt work - had to set it in unity -> inspector
-        fireRate = 0.5f; //this doesnt work - had to set it in unity -> inspector
-        cost = 150; //this doesnt work - had to set it in unity -> inspector
+        range = 10f; 
+        fireRate = 0.5f; 
+        cost = 150;
+        level = 0;
+        upgradeCost = 150;
         base.Awake();
     }
 

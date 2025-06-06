@@ -8,9 +8,11 @@ public class HoundiusShootius : Tower
 
     protected override void Awake()
     {
-        range = 4f; //this doesnt work - had to set it in unity -> inspector
-        fireRate = 2f; //this doesnt work - had to set it in unity -> inspector
-        cost = 300; //this doesnt work - had to set it in unity -> inspector
+        range = 4f; 
+        fireRate = 2f; 
+        cost = 300;
+        level = 0;
+        upgradeCost = 200;
         base.Awake();
     }
 

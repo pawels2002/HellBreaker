@@ -155,43 +155,22 @@ public abstract class Tower : MonoBehaviour
     protected void FaceEnemy(Transform target) //fix this - only rotates left and right
     {
         Vector3 direction = target.position - transform.position;
-        float angle = Vector3.SignedAngle(Vector3.up, direction, Vector3.forward);
+        float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
         Debug.Log("Angle to enemy: " + angle);
-        if (angle >= -100 && angle <= 100)
-        {
-            spriteRenderer.sprite = frontView;
-            spriteRenderer.flipX = false;
-        }
-        else if (angle >= 110f || angle <= -110f)
+        if (angle >= -45 && angle <= 45)
         {
             spriteRenderer.sprite = backView;
+            spriteRenderer.flipX = false;
+        }
+        else if (angle >= 145 || angle <= -145)
+        {
+            spriteRenderer.sprite = frontView;
             spriteRenderer.flipX = false;
         }
         else
         {
             spriteRenderer.sprite = sideView;
             spriteRenderer.flipX = direction.x < 0f; // Flip based on direction
-        }
-    }
-
-    protected void levelUpTowerAndIncreaseUpgradeCostBy(int increaseUpgradeCostBy)
-    {
-        if (upgradeCost < Money.Instance.GetMoney())
-        {
-            Money.Instance.RemoveMoney(upgradeCost);
-            improveTowerStatistics();
-            upgradeCost += increaseUpgradeCostBy;
-            //add star here or in upgradetower method
-            level++;
-            if (level == 3)
-            {
-                upgradeButtonUI.SetActive(false);
-                upgradeUIActive = false;
-            }
-        }
-        else
-        {
-            Debug.Log("Not enough money to upgrade the tower.");
         }
     }
 
@@ -202,8 +181,22 @@ public abstract class Tower : MonoBehaviour
             case 0:
             case 1: 
             case 2:
-                levelUpTowerAndIncreaseUpgradeCostBy(upgradeCost);
-                //add star here or in levelUpTowerAndIncreaseUpgradeCostBy method
+                if (upgradeCost < Money.Instance.GetMoney())
+                {
+                    Money.Instance.RemoveMoney(upgradeCost);
+                    improveTowerStatistics();
+                    //add star here
+                    level++;
+                    if (level == 3)
+                    {
+                        upgradeButtonUI.SetActive(false);
+                        upgradeUIActive = false;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not enough money to upgrade the tower.");
+                }
                 break;
             default:
                 Debug.Log("This tower is upgraded to maximum"); //this should never be triggered

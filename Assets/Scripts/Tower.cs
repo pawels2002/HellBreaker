@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public abstract class Tower : MonoBehaviour
 {
     [Header("Animation")]
@@ -20,7 +19,11 @@ public abstract class Tower : MonoBehaviour
     [Header("Bullet Settings")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    
+    public Transform firePointFront;
+    public Transform firePointBack;
+    public Transform firePointRight;
+    public Transform firePointLeft;
+
 
     [Header("Sprites")]
     public SpriteRenderer spriteRenderer;
@@ -152,7 +155,7 @@ public abstract class Tower : MonoBehaviour
         //Debug.Log("Bullet spawned at: " + firePoint.position);
     }
 
-    protected void FaceEnemy(Transform target) //fix this - only rotates left and right
+    protected void FaceEnemy(Transform target) 
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
@@ -160,16 +163,19 @@ public abstract class Tower : MonoBehaviour
         if (angle >= -45 && angle <= 45)
         {
             spriteRenderer.sprite = backView;
+            firePoint = firePointBack;
             spriteRenderer.flipX = false;
         }
         else if (angle >= 145 || angle <= -145)
         {
             spriteRenderer.sprite = frontView;
+            firePoint = firePointFront;
             spriteRenderer.flipX = false;
         }
         else
         {
             spriteRenderer.sprite = sideView;
+            firePoint = (angle > 0) ? firePointRight : firePointLeft;
             spriteRenderer.flipX = direction.x < 0f; // Flip based on direction
         }
     }

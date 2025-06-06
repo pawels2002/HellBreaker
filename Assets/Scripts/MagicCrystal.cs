@@ -85,15 +85,20 @@ public class MagicCrystal : Tower
                 //range += 0.25f;
                 fireRate += 0.25f;
                 upgradeCost += 200;
+                star1.enabled = true;
                 break;
             case 1:
                 //range += 0.25f;
                 fireRate += 0.25f;
                 upgradeCost += 400;
+                star1.enabled = false;
+                star2.enabled = true;
                 break;
             case 2:
                 //range += 1f;
                 fireRate += 0.25f;
+                star2.enabled = false;
+                star3.enabled = true;
                 break;
         }
     }

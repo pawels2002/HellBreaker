@@ -26,6 +26,9 @@ public abstract class Tower : MonoBehaviour
 
 
     [Header("Sprites")]
+    public SpriteRenderer star1;
+    public SpriteRenderer star2;
+    public SpriteRenderer star3;
     public SpriteRenderer spriteRenderer;
     public Sprite frontView;
     public Sprite backView;
@@ -44,6 +47,9 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void Awake()
     {
+        star1.enabled = false;
+        star2.enabled = false;
+        star3.enabled = false;
         if (animator == null)
             animator = GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
@@ -218,15 +224,20 @@ public abstract class Tower : MonoBehaviour
                 range += 0.25f;
                 fireRate += 0.25f;
                 upgradeCost += 100;
+                star1.enabled = true; 
                 break;
              case 1:
                 range += 0.5f;
                 fireRate += 0.5f;
                 upgradeCost += 200;
+                star1.enabled = false;
+                star2.enabled = true;
                 break;
              case 2:
                 range += 1f;
                 fireRate += 1f;
+                star2.enabled = false;
+                star3.enabled = true;
                 break;
         }
     }

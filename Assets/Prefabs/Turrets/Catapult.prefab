@@ -88,7 +88,7 @@ Transform:
   m_GameObject: {fileID: 3223819867811770299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 1.76, z: 0}
+  m_LocalPosition: {x: -0.02, y: -1.12, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -237,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 6102904459514343770}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 1.55, z: 0}
+  m_LocalPosition: {x: 0.02, y: -1.08, z: -0.4}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -386,7 +386,7 @@ Transform:
   m_GameObject: {fileID: 7981895477766396089}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 1.64, z: 0}
+  m_LocalPosition: {x: -0.09, y: -1.12, z: -0.4}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -576,7 +576,6 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: 845a80e37d371ba40a7d1bc1808724cf, type: 3}
   backView: {fileID: 21300000, guid: 80aa5d11a852a9d45974a958ed2c9104, type: 3}
   sideView: {fileID: 21300000, guid: 8fe804a19e1c73b4f88ca49a21b2d6c6, type: 3}
-  stars: {fileID: 0}
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 4889195367144439650}
   upgradeButtonDisplayRange: 3

@@ -110,7 +110,6 @@ public abstract class Tower : MonoBehaviour
         {
             if (fireCountdown <= 0f)
             {      
-                FaceEnemy(nearest.transform);
                 Shoot(nearest.transform);
                 fireCountdown = 1f / fireRate;
             }
@@ -161,29 +160,33 @@ public abstract class Tower : MonoBehaviour
         //Debug.Log("Bullet spawned at: " + firePoint.position);
     }
 
-    protected void FaceEnemy(Transform target) 
+    protected int FaceEnemy(Transform target)
     {
         Vector3 direction = target.position - transform.position;
         float angle = Vector3.SignedAngle(Vector3.forward, direction, Vector3.up);
-        Debug.Log("Angle to enemy: " + angle);
+
         if (angle >= -45 && angle <= 45)
         {
             spriteRenderer.sprite = backView;
             firePoint = firePointBack;
             spriteRenderer.flipX = false;
+            return 1; // up
         }
         else if (angle >= 145 || angle <= -145)
         {
             spriteRenderer.sprite = frontView;
             firePoint = firePointFront;
             spriteRenderer.flipX = false;
+            return 2; // down
         }
         else
         {
             spriteRenderer.sprite = sideView;
             firePoint = (angle > 0) ? firePointRight : firePointLeft;
-            spriteRenderer.flipX = direction.x < 0f; // Flip based on direction
+            spriteRenderer.flipX = direction.x < 0f;
+            return 3; // side
         }
+        // Optionally, return 0 for idle if needed
     }
 
     public void upgradeTower()

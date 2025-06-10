@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public float lastAttackTime = -Mathf.Infinity;
     float attackRadius = 1.5f; 
     float attackAngle = 30f;
-    public int maxHP = 100;
     private int currentHP;
     private bool isInvulnerable = false;
     private float invulnerableTime = 1f;
@@ -39,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         fixedY = transform.position.y;
         targetRotation = transform.rotation;
-        currentHP = maxHP;
+        currentHP = HealthPlayer.Instance.GetHealth();
         //transform.rotation = Quaternion.Euler(45f, 0f, 0f); //should be done but walks inside grass
         //buildSystem = FindObjectOfType<Build>();
     }
@@ -168,19 +167,17 @@ public class PlayerMovement : MonoBehaviour
             TakeDamage(10); // or any damage value you want
             isInvulnerable = true;
             invulnerableTimer = invulnerableTime;
-            //SetPlayerCollision(false);
+        }
+        if (HealthPlayer.Instance.GetHealth() <= 0)
+        {
+
+            SetPlayerCollision(false);
         }
     }
 
     private void TakeDamage(int amount)
     {
-        currentHP -= amount;
-        Debug.Log("Player HP: " + currentHP);
-        if (currentHP <= 0)
-        {
-            // Handle player death here
-            Debug.Log("Player died!");
-        }
+        HealthPlayer.Instance.RemoveHealth(amount);
     }
 
     private void SetPlayerCollision(bool enabled)

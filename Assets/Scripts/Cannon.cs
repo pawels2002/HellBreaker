@@ -17,10 +17,12 @@ public class Cannon : Tower
 
     protected override void Shoot(Transform target)
     {
+        int animDirection = FaceEnemy(target); // Get direction from base method
+
         if (animator != null)
         {
             animator.SetBool("isFiring", true);
-            animator.SetInteger("direction", 2);
+            animator.SetInteger("direction", animDirection);
         }
         StartCoroutine(DelayedShoot(target));
     }
@@ -34,9 +36,8 @@ public class Cannon : Tower
         // Optionally, reset the animation after firing
         if (animator != null)
         {
-            yield return new WaitForSeconds(0.53f); // Short delay for animation finish
+            yield return new WaitForSeconds(0.47f); // Short delay for animation finish
             animator.SetBool("isFiring", false);
-            animator.SetInteger("direction", 0);
         }
 
     }

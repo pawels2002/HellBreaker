@@ -1632,13 +1632,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 580021622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d5c8c0a65a76774484bdd782bc627bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 7de5b23600e89904096da7f8e4915a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
   moveSpeed: 5
   rotationSpeed: 720
   rotationStep: 90
+  attackCooldown: 1
+  lastAttackTime: -Infinity
+  maxHP: 100
   buildSystem: {fileID: 6614178366142585472, guid: 4c2cbd25d771a0345ab70dac38a63126, type: 3}
   radialBuildMenu: {fileID: 1151982120}
 --- !u!54 &580021624
@@ -1666,7 +1669,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!135 &580021625
 SphereCollider:
@@ -2464,7 +2467,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1006790492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18835b5fe43ce247962ba1b6fa14da8, type: 3}
+  m_Script: {fileID: 11500000, guid: d9054de8c06fd3345900da21debb3420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 580021626}
@@ -2649,10 +2652,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134869288}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4df2c9c8ce2d3c048a2f1bf6d04054a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 747154354c5587042a9793b0d97abc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4299737451682476109, guid: ad5cbec299080194dbfe5b55261cc9a6, type: 3}
+  enemyPrefab: {fileID: 4299737451682476109, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
   spawnPoint: {fileID: 504620317}
   timeBetweenWaves: 2
 --- !u!4 &1134869290
@@ -2908,7 +2911,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1170855153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d57af2ec2ed5dd47ac72231301b84e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 596369d1eb7b819429910c2b5b9bc80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1170855155
@@ -3022,7 +3025,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1290120379}
   - component: {fileID: 1290120380}
-  - component: {fileID: 1290120381}
   - component: {fileID: 1290120382}
   - component: {fileID: 1290120383}
   m_Layer: 0
@@ -3102,23 +3104,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1290120381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290120378}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09008a5e8045625438a2098fae4782fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleSprite: {fileID: -666351085, guid: 44812447641b3df468f2a08b8cffe2e8, type: 3}
-  walkUpSprite: {fileID: -294138008, guid: 44812447641b3df468f2a08b8cffe2e8, type: 3}
-  walkDownSprite: {fileID: -666351085, guid: 44812447641b3df468f2a08b8cffe2e8, type: 3}
-  walkLeftSprite: {fileID: 810924572, guid: 44812447641b3df468f2a08b8cffe2e8, type: 3}
-  walkRightSprite: {fileID: -1169764714, guid: 44812447641b3df468f2a08b8cffe2e8, type: 3}
 --- !u!95 &1290120382
 Animator:
   serializedVersion: 7
@@ -5123,9 +5108,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1491090017144808687, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
+      propertyPath: field of view
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 2070171790376772868, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070171790376772868, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 6931210263132672774, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
       propertyPath: m_LocalPosition.x

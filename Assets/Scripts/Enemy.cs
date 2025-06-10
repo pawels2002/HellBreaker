@@ -1,3 +1,4 @@
+//using System.Diagnostics;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,6 +8,9 @@ public class Enemy : MonoBehaviour
     private Transform target;
     private int waypointIndex = 0;
 
+    public int maxHP = 100;//
+    private int currentHP;//
+
     public Vector3 CurrentDirection { get; private set; }
 
     private void Start()
@@ -15,8 +19,14 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
     }
 
+    void Awake()//
+    {
+        currentHP = maxHP;
+    }
+
     private void Update()
     {
+
         Vector3 dir = target.position - transform.position;
         CurrentDirection = dir.normalized;
 
@@ -38,5 +48,21 @@ public class Enemy : MonoBehaviour
 
         waypointIndex++;
         target = Waypoints.points[waypointIndex];
+    }
+
+    public void TakeDamage(int amount)//
+    {
+        currentHP -= amount;
+        Debug.Log($"{gameObject.name} took {amount} damage. HP left: {currentHP}");
+        if (currentHP <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()//
+    {
+        Debug.Log($"{gameObject.name} died!");
+        Destroy(gameObject);
     }
 }

@@ -41,12 +41,17 @@ public abstract class Tower : MonoBehaviour
     public float upgradeButtonDisplayRange = 3f;
     protected bool upgradeUIActive = false;
     protected Transform playerTransform;
+    private float buildDelay = 0.4f;
+    private float buildTimer = 0f;
+    private bool isBuilt = false;
 
     protected float fireCountdown = 0f;
     protected Vector3 vec3; //delete
 
     protected virtual void Awake()
     {
+        buildTimer = buildDelay;
+        isBuilt = false;
         star1.enabled = false;
         star2.enabled = false;
         star3.enabled = false;
@@ -90,6 +95,15 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!isBuilt)
+        {
+            buildTimer -= Time.deltaTime;
+            if (buildTimer <= 0f)
+            {
+                isBuilt = true;
+            }
+            return; // Skip the rest of Update until built
+        }
         if (!PauseMenu.isPaused) { 
             
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");

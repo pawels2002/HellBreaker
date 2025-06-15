@@ -2,13 +2,14 @@
 //using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using TMPro;
 
 public class MagicCrystal : Tower
 {
     protected override void Awake()
     { 
-        range = 2f; 
+        range = 3f; 
         fireRate = 0.25f; 
         cost = 600;
         level = 0;
@@ -19,8 +20,26 @@ public class MagicCrystal : Tower
     // You can override Shoot() or Update() to customize behavior
     protected override void Shoot(Transform target)
     {
-        base.Shoot(target); // or customize the behavior
-        //Debug.Log("Magic Crystal fired!");
+        if (animator != null)
+        {
+            animator.SetBool("isFiring", true);
+        }
+        StartCoroutine(DelayedShoot(target));
+    }
+
+    private IEnumerator DelayedShoot(Transform target)
+    {
+        yield return new WaitForSeconds(0.35f); // Wait for 0.3 seconds before firing
+
+        base.Shoot(target);
+
+        // Optionally, reset the animation after firing
+        if (animator != null)
+        {
+            yield return new WaitForSeconds(0.40f); // Short delay for animation finish
+            animator.SetBool("isFiring", false);
+        }
+
     }
 
     protected override void Update()

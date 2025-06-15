@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 2289752985343829059}
   - component: {fileID: 7403634568221598269}
   - component: {fileID: 1751988360103631219}
+  - component: {fileID: 3780736618259227168}
   m_Layer: 0
   m_Name: MagicCrystal
   m_TagString: Untagged
@@ -281,7 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  range: 2
+  range: 3
   fireRate: 70
   cost: 600
   level: 0
@@ -323,6 +324,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.48, y: 2.11, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &3780736618259227168
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2422292918071512475}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27cd2c872d24c1248968d094647dc555, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3486999395680515551
 GameObject:
   m_ObjectHideFlags: 0

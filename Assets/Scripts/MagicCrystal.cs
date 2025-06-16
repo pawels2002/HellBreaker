@@ -20,20 +20,27 @@ public class MagicCrystal : Tower
     // You can override Shoot() or Update() to customize behavior
     protected override void Shoot(Transform target)
     {
+        base.Shoot(target);
+        
+        
+    }
+
+    private IEnumerator DelayedShoot(GameObject[] enemies)
+    {
         if (animator != null)
         {
             animator.SetBool("isFiring", true);
         }
-        StartCoroutine(DelayedShoot(target));
-    }
-
-    private IEnumerator DelayedShoot(Transform target)
-    {
         yield return new WaitForSeconds(0.35f); // Wait for 0.3 seconds before firing
 
-        base.Shoot(target);
-
-        // Optionally, reset the animation after firing
+        foreach (GameObject enemy in enemies)
+        {
+            float dist = Vector3.Distance(transform.position, enemy.transform.position);
+            if (dist <= range)
+            {
+                Shoot(enemy.transform); // Shoot each enemy in range
+            }
+        }
         if (animator != null)
         {
             yield return new WaitForSeconds(0.40f); // Short delay for animation finish
@@ -46,24 +53,36 @@ public class MagicCrystal : Tower
     {
         if (!PauseMenu.isPaused)
         {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            // First we check the tower's cooldown timer
+            if (fireCountdown > 0f)
+            {
+                fireCountdown -= Time.deltaTime;
+            }
 
+            //Only when the tower is ready, we check for enemies in range
+            //I made it this way because otherwise the tower would play the fire animation without any enemies
+            //and sometimes with the previous logic it would not fire at all
             if (fireCountdown <= 0f)
             {
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                bool enemyInRange = false;
+
                 foreach (GameObject enemy in enemies)
                 {
                     float dist = Vector3.Distance(transform.position, enemy.transform.position);
                     if (dist <= range)
                     {
-                        Shoot(enemy.transform); // Shoot each enemy in range
+                        enemyInRange = true;
+                        break;
                     }
                 }
 
-                fireCountdown = 1f / fireRate; // Reset once, after all shots
+                if (enemyInRange)
+                {
+                    StartCoroutine(DelayedShoot(enemies));
+                    fireCountdown = 1f / fireRate; // Reset cooldown after firing
+                }
             }
-
-            fireCountdown -= Time.deltaTime;
-
             if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null && level != 3)
             {
                 float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);

@@ -35,6 +35,9 @@ public class MagicCrystal : Tower
 
         foreach (GameObject enemy in enemies)
         {
+            // Unity null check: handles destroyed objects
+            if (enemy == null) continue;
+
             float dist = Vector3.Distance(transform.position, enemy.transform.position);
             if (dist <= range)
             {
@@ -46,7 +49,6 @@ public class MagicCrystal : Tower
             yield return new WaitForSeconds(0.40f); // Short delay for animation finish
             animator.SetBool("isFiring", false);
         }
-
     }
 
     protected override void Update()

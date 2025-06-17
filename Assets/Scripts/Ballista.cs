@@ -30,14 +30,14 @@ public class Ballista : Tower
 
     private IEnumerator DelayedShoot(Transform target)
     {
-        yield return new WaitForSeconds(0.3f); // Wait for 0.3 seconds before firing
+        yield return new WaitForSeconds(0.13f); // Wait for 0.3 seconds before firing
 
         base.Shoot(target);
 
         // Optionally, reset the animation after firing
         if (animator != null)
         {
-            yield return new WaitForSeconds(0.47f); // Short delay for animation finish
+            yield return new WaitForSeconds(0.37f); // Short delay for animation finish
             animator.SetBool("isFiring", false);
         }
 

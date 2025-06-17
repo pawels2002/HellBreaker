@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 720f;
     public float rotationStep = 90f;
-    public float attackCooldown = 1f; 
+
+    public float attackCooldown = 0.5f; 
     public float lastAttackTime = -Mathf.Infinity;
     float attackRadius = 1.5f; 
-    float attackAngle = 30f;
+
+    float attackAngle = 40f;
     private int currentHP;
     private bool isInvulnerable = false;
     private float invulnerableTime = 1f;
@@ -33,14 +35,24 @@ public class PlayerMovement : MonoBehaviour
 
     private Quaternion targetRotation;
     [SerializeField] private GameObject radialBuildMenu;
+    private Renderer[] renderers;
+    private Color originalColor;
+    private bool isModelGreyed = false;
+    private Vector3 lastAttackDir = Vector3.forward;
+    private bool IsDead => HealthPlayer.Instance.GetHealth() <= 0;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         fixedY = transform.position.y;
         targetRotation = transform.rotation;
         currentHP = HealthPlayer.Instance.GetHealth();
-        //transform.rotation = Quaternion.Euler(45f, 0f, 0f); //should be done but walks inside grass
-        //buildSystem = FindObjectOfType<Build>();
+
+        // Cache all renderers
+        renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            originalColor = renderers[0].material.color;
+        }
     }
     private enum AttackDirection { Left, Right, Top, Bottom }
     void Update()
@@ -85,14 +97,30 @@ public class PlayerMovement : MonoBehaviour
                 Money.Instance.AddMoney(1000);
             }
         }
-
-        // Attack with cooldown
-        if (Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
+        if (!IsDead && Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
         {
-            AttackDirection dir = GetAttackDirectionFromMouse();
-            Attack(dir);
+            Vector3 attackDir = GetAttackDirectionFromMouse();
+            Attack(attackDir);
             lastAttackTime = Time.time;
         }
+        // Attack with cooldown (only if not dead)
+        if (!IsDead && Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
+        {
+            Vector3 attackDir = GetAttackDirectionFromMouse();
+            Attack(attackDir);
+            lastAttackTime = Time.time;
+        }
+
+        // At the end of Update()
+        if (IsDead && !isModelGreyed)
+        {
+            SetModelGray(true);
+        }
+        else if (!IsDead && isModelGreyed)
+        {
+            SetModelGray(false);
+        }
+   
 
         //since we dont care about rotating camera i commented this out
         /*
@@ -135,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
 
      
     }
-    private AttackDirection GetAttackDirectionFromMouse()
+    private Vector3 GetAttackDirectionFromMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane playerPlane = new Plane(Vector3.up, transform.position);
@@ -143,22 +171,13 @@ public class PlayerMovement : MonoBehaviour
         if (playerPlane.Raycast(ray, out enter))
         {
             Vector3 hitPoint = ray.GetPoint(enter);
-            Vector3 localDir = transform.InverseTransformDirection((hitPoint - transform.position).normalized);
-
-            float absX = Mathf.Abs(localDir.x);
-            float absZ = Mathf.Abs(localDir.z);
-
-            if (absX > absZ)
-            {
-                return localDir.x > 0 ? AttackDirection.Right : AttackDirection.Left;
-            }
-            else
-            {
-                return localDir.z > 0 ? AttackDirection.Top : AttackDirection.Bottom;
-            }
+            Vector3 dir = (hitPoint - transform.position).normalized;
+            if (dir.sqrMagnitude > 0.01f)
+                lastAttackDir = dir;
+            return lastAttackDir;
         }
-        // Default to Top if raycast fails
-        return AttackDirection.Top;
+        // Default to forward if raycast fails
+        return lastAttackDir;
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -188,50 +207,39 @@ public class PlayerMovement : MonoBehaviour
             playerCollider.enabled = enabled;
         }
     }
-    private void Attack(AttackDirection dir)
+private void Attack(Vector3 attackDir)
+{
+    Debug.Log("Attacking dir: " + attackDir);
+
+    float angle = attackAngle;
+    Vector3 attackOrigin = transform.position + Vector3.up * 1f;
+
+    Collider[] hits = Physics.OverlapSphere(attackOrigin, attackRadius);
+    bool hitAny = false;
+    foreach (var hit in hits)
     {
-        Debug.Log("Attacking: " + dir);
-
-        // Determine attack direction in world space
-        Vector3 attackDir = Vector3.zero;
-        switch (dir)
+        Enemy enemy = hit.GetComponent<Enemy>();
+        if (enemy != null)
         {
-            case AttackDirection.Left: attackDir = -transform.right; break;
-            case AttackDirection.Right: attackDir = transform.right; break;
-            case AttackDirection.Top: attackDir = transform.forward; break;
-            case AttackDirection.Bottom: attackDir = -transform.forward; break;
-        }
-
-        Vector3 attackOrigin = transform.position + Vector3.up * 1f; // adjust height as needed
- 
-
-
-        Collider[] hits = Physics.OverlapSphere(attackOrigin, attackRadius);
-        bool hitAny = false;
-        foreach (var hit in hits)
-        {
-            Enemy enemy = hit.GetComponent<Enemy>();
-            if (enemy != null)
+            Vector3 toTarget = (hit.transform.position - attackOrigin).normalized;
+            float targetAngle = Vector3.Angle(attackDir, toTarget);
+            if (targetAngle <= angle)
             {
-                Vector3 toTarget = (hit.transform.position - attackOrigin).normalized;
-                float angle = Vector3.Angle(attackDir, toTarget);
-                if (angle <= attackAngle)
-                {
-                    Destroy(enemy.gameObject);
-                    Money.Instance.AddMoney(5);
-                    hitAny = true;
-                }
+                Destroy(enemy.gameObject);
+                Money.Instance.AddMoney(5);
+                hitAny = true;
             }
         }
-
-        // Debug: Draw the cone area in Scene view
-        Debug.DrawRay(attackOrigin, Quaternion.Euler(0, attackAngle, 0) * attackDir * attackRadius, Color.red, 0.2f);
-        Debug.DrawRay(attackOrigin, Quaternion.Euler(0, -attackAngle, 0) * attackDir * attackRadius, Color.red, 0.2f);
-        Debug.DrawRay(attackOrigin, attackDir * attackRadius, Color.red, 0.2f);
-
-        if (!hitAny)
-            Debug.Log("No enemy hit.");
     }
+
+    // Debug: Draw the cone area in Scene view
+    Debug.DrawRay(attackOrigin, Quaternion.Euler(0, angle, 0) * attackDir * attackRadius, Color.red, 0.2f);
+    Debug.DrawRay(attackOrigin, Quaternion.Euler(0, -angle, 0) * attackDir * attackRadius, Color.red, 0.2f);
+    Debug.DrawRay(attackOrigin, attackDir * attackRadius, Color.red, 0.2f);
+
+    if (!hitAny)
+        Debug.Log("No enemy hit.");
+}
     void FixedUpdate()
     {
 
@@ -244,5 +252,18 @@ public class PlayerMovement : MonoBehaviour
         pos.y = fixedY;
         rb.position = pos;
     }
+    private void SetModelGray(bool gray)
+    {
+        if (renderers == null) return;
+        foreach (var rend in renderers)
+        {
+            if (gray)
+                rend.material.color = Color.gray;
+            else
+                rend.material.color = originalColor;
+        }
+        isModelGreyed = gray;
+    }
 }
+
 

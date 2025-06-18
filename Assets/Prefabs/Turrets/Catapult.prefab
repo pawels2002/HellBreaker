@@ -574,9 +574,9 @@ MonoBehaviour:
   star2: {fileID: 6502569033349614139}
   star3: {fileID: 2414716926178561035}
   spriteRenderer: {fileID: 8097055598876585737}
-  frontView: {fileID: 21300000, guid: 845a80e37d371ba40a7d1bc1808724cf, type: 3}
-  backView: {fileID: 21300000, guid: 80aa5d11a852a9d45974a958ed2c9104, type: 3}
-  sideView: {fileID: 21300000, guid: 8fe804a19e1c73b4f88ca49a21b2d6c6, type: 3}
+  frontView: {fileID: 21300000, guid: 7564589e293b0cf4fb5d4a9fed939926, type: 3}
+  backView: {fileID: 21300000, guid: 5b55e62acefe72d4daaf12e28b4af654, type: 3}
+  sideView: {fileID: 21300000, guid: e520e59e299057c4c81a3ca2585b2b6d, type: 3}
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 4889195367144439650}
   upgradeButtonDisplayRange: 3

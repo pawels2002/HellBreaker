@@ -1,4 +1,6 @@
+using System.Collections;
 using System.ComponentModel.Design.Serialization;
+
 using System.Reflection.Emit;
 using UnityEngine;
 
@@ -38,7 +40,9 @@ public class PlayerMovement : MonoBehaviour
     private Renderer[] renderers;
     private Color originalColor;
     private bool isModelGreyed = false;
+    private bool isAttacking = false;
     private Vector3 lastAttackDir = Vector3.forward;
+    private Vector3 originalLocalScale;
     private bool IsDead => HealthPlayer.Instance.GetHealth() <= 0;
     void Awake()
     {
@@ -53,16 +57,24 @@ public class PlayerMovement : MonoBehaviour
         {
             originalColor = renderers[0].material.color;
         }
+        originalLocalScale = transform.localScale;
     }
     private enum AttackDirection { Left, Right, Top, Bottom }
     void Update()
     {
         if (!PauseMenu.isPaused)
         {
+            if (!isAttacking)
+            {
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
 
             inputDirection = new Vector3(x, 0, z).normalized;
+            }
+            else
+            {
+                inputDirection = Vector3.zero;
+            }
             Vector3 spawnPos = transform.position + transform.forward * 2f;
             spawnPos.y = 1f;
 
@@ -97,19 +109,13 @@ public class PlayerMovement : MonoBehaviour
                 Money.Instance.AddMoney(1000);
             }
         }
-        if (!IsDead && Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
+        if (!IsDead && !isAttacking && Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
         {
             Vector3 attackDir = GetAttackDirectionFromMouse();
-            Attack(attackDir);
+            StartCoroutine(AttackRoutine(attackDir));
             lastAttackTime = Time.time;
         }
-        // Attack with cooldown (only if not dead)
-        if (!IsDead && Input.GetMouseButtonDown(0) && Time.time >= lastAttackTime + attackCooldown)
-        {
-            Vector3 attackDir = GetAttackDirectionFromMouse();
-            Attack(attackDir);
-            lastAttackTime = Time.time;
-        }
+
 
         // At the end of Update()
         if (IsDead && !isModelGreyed)
@@ -207,11 +213,66 @@ public class PlayerMovement : MonoBehaviour
             playerCollider.enabled = enabled;
         }
     }
-private void Attack(Vector3 attackDir)
-{
-    Debug.Log("Attacking dir: " + attackDir);
+    private IEnumerator AttackRoutine(Vector3 attackDir)
+    {
+        isAttacking = true;
 
-    float angle = attackAngle;
+        // Determine animation direction
+        float animAngle = Mathf.Atan2(attackDir.x, attackDir.z) * Mathf.Rad2Deg;
+        int animDirection = 1;
+        bool shouldFlip = false;
+
+        if (animAngle >= -45f && animAngle < 45f) //up
+            animDirection = 1;
+        else if (animAngle >= 45f && animAngle < 135f) //right
+            animDirection = 3;
+        else if (animAngle >= -135f && animAngle < -45f) //left
+            animDirection = 3;
+        else //down
+            animDirection = 2;
+
+
+        if (animDirection == 3) // Side attack
+        {
+            if (Mathf.Abs(inputDirection.x) > Mathf.Abs(inputDirection.z) && Mathf.Abs(inputDirection.x) > 0.01f)
+            {
+                // Moving right and attacking left, or moving left and attacking right
+                if ((inputDirection.x > 0 && attackDir.x < 0) || (inputDirection.x < 0 && attackDir.x > 0))
+                    shouldFlip = true;
+            }
+            else
+            {
+                // Idle: flip if attacking left
+                if (attackDir.x < 0)
+                    shouldFlip = true;
+            }
+        }
+        Vector3 localScale = transform.localScale;
+        localScale.x = shouldFlip ? -Mathf.Abs(localScale.x) : Mathf.Abs(localScale.x);
+        transform.localScale = localScale;
+
+        if (_animator != null)
+        {
+            _animator.SetInteger("attackDirection", animDirection);
+            _animator.SetBool("isAttacking", true);
+        }
+
+        DoAttackLogic(attackDir);
+
+        yield return new WaitForSeconds(0.4f);
+
+        if (_animator != null)
+        {
+            _animator.SetBool("isAttacking", false);
+        }
+        
+        isAttacking = false;
+        transform.localScale = originalLocalScale;
+
+    }
+    private void DoAttackLogic(Vector3 attackDir)
+    {
+     float angle = attackAngle;
     Vector3 attackOrigin = transform.position + Vector3.up * 1f;
 
     Collider[] hits = Physics.OverlapSphere(attackOrigin, attackRadius);

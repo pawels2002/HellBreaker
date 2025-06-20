@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     float attackAngle = 40f;
     private int currentHP;
     private bool isInvulnerable = false;
-    private float invulnerableTime = 1f;
+    private float invulnerableTime = 3f;
     private float invulnerableTimer = 0f;
 
     //public GameObject ballistaPrefab;
@@ -39,8 +39,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject radialBuildMenu;
     private Renderer[] renderers;
     private Color originalColor;
-    private bool isModelGreyed = false;
     private bool isAttacking = false;
+    private bool isHurt = false;
+    private bool isDead = false;
     private Vector3 lastAttackDir = Vector3.forward;
     private Vector3 originalLocalScale;
     private bool IsDead => HealthPlayer.Instance.GetHealth() <= 0;
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!PauseMenu.isPaused)
         {
-            if (!isAttacking)
+            if (!isAttacking && !isHurt)
             {
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
@@ -118,13 +119,13 @@ public class PlayerMovement : MonoBehaviour
 
 
         // At the end of Update()
-        if (IsDead && !isModelGreyed)
+        if (isDead)
         {
-            SetModelGray(true);
+            SetPlayerColor(Color.gray);
         }
-        else if (!IsDead && isModelGreyed)
+        else if (!isDead && !isHurt)
         {
-            SetModelGray(false);
+            SetPlayerColor(originalColor);
         }
    
 
@@ -187,17 +188,45 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (!isInvulnerable && collision.gameObject.GetComponent<Enemy>() != null)
+        if (!isInvulnerable && !isDead && collision.gameObject.GetComponent<Enemy>() != null)
         {
-            TakeDamage(10); // or any damage value you want
-            isInvulnerable = true;
-            invulnerableTimer = invulnerableTime;
+            TakeDamage(10);
+            StartCoroutine(HurtRoutine());
         }
         if (HealthPlayer.Instance.GetHealth() <= 0)
         {
 
             SetPlayerCollision(false);
+            isDead = true;
         }
+    }
+
+    private IEnumerator HurtRoutine()
+    {
+        if (isDead)
+            yield break;
+        isHurt = true;
+        isInvulnerable = true;
+
+        if (_animator != null)
+            _animator.SetBool("isHurt", true);
+
+        float timer = 0f;
+        bool isRed = false;
+        while (timer < 0.37f)
+        {
+            SetPlayerColor(isRed ? Color.red : originalColor);
+            isRed = !isRed;
+            yield return new WaitForSeconds(0.07f);
+            timer += 0.07f;
+        }
+        SetPlayerColor(originalColor);
+
+        if (_animator != null)
+            _animator.SetBool("isHurt", false);
+
+        isHurt = false;
+        invulnerableTimer = invulnerableTime;
     }
 
     private void TakeDamage(int amount)
@@ -236,13 +265,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Mathf.Abs(inputDirection.x) > Mathf.Abs(inputDirection.z) && Mathf.Abs(inputDirection.x) > 0.01f)
             {
-                // Moving right and attacking left, or moving left and attacking right
                 if ((inputDirection.x > 0 && attackDir.x < 0) || (inputDirection.x < 0 && attackDir.x > 0))
                     shouldFlip = true;
             }
             else
             {
-                // Idle: flip if attacking left
                 if (attackDir.x < 0)
                     shouldFlip = true;
             }
@@ -270,6 +297,8 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = originalLocalScale;
 
     }
+
+
     private void DoAttackLogic(Vector3 attackDir)
     {
      float angle = attackAngle;
@@ -313,17 +342,13 @@ public class PlayerMovement : MonoBehaviour
         pos.y = fixedY;
         rb.position = pos;
     }
-    private void SetModelGray(bool gray)
+    private void SetPlayerColor(Color color)
     {
         if (renderers == null) return;
         foreach (var rend in renderers)
         {
-            if (gray)
-                rend.material.color = Color.gray;
-            else
-                rend.material.color = originalColor;
+            rend.material.color = color;
         }
-        isModelGreyed = gray;
     }
 }
 

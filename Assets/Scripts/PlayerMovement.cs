@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         fixedY = transform.position.y;
         targetRotation = transform.rotation;
-        currentHP = HealthPlayer.Instance.GetHealth();
+        //currentHP = HealthPlayer.Instance.GetHealth();
 
         // Cache all renderers
         renderers = GetComponentsInChildren<Renderer>();

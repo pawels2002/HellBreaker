@@ -1896,7 +1896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de5b23600e89904096da7f8e4915a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 1290120382}
   moveSpeed: 5
   rotationSpeed: 720
   rotationStep: 90
@@ -2965,7 +2965,7 @@ SpriteRenderer:
   m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1006790492
@@ -6027,7 +6027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6931210263132672774, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.62
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6931210263132672774, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6035,7 +6035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6931210263132672774, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -30.949995
+      value: -4.3000007
       objectReference: {fileID: 0}
     - target: {fileID: 6931210263132672774, guid: c9d062a8f390e81469983ebf1ff307a9, type: 3}
       propertyPath: m_LocalRotation.w

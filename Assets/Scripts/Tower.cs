@@ -6,6 +6,9 @@ using TMPro;
 
 public abstract class Tower : MonoBehaviour
 {
+    // Static reference to the tower currently showing its range
+    public static Tower activeRangeTower = null;
+
     [Header("Animation")]
     public Animator animator;
 
@@ -23,7 +26,6 @@ public abstract class Tower : MonoBehaviour
     public Transform firePointBack;
     public Transform firePointRight;
     public Transform firePointLeft;
-
 
     [Header("Sprites")]
     public SpriteRenderer star1;
@@ -43,7 +45,8 @@ public abstract class Tower : MonoBehaviour
     protected Transform playerTransform;
     private float buildDelay = 0.4f;
     private float buildTimer = 0f;
-    private bool isBuilt = false;
+    public bool isBuilt = false;
+    [SerializeField] public GameObject rangeVisualizer;
 
     protected float fireCountdown = 0f;
     protected Vector3 vec3; //delete
@@ -55,6 +58,8 @@ public abstract class Tower : MonoBehaviour
         star1.enabled = false;
         star2.enabled = false;
         star3.enabled = false;
+        rangeVisualizer.transform.localScale = Vector3.one * range * 1f;
+        rangeVisualizer.SetActive(false); // Hide by default
         if (animator == null)
             animator = GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
@@ -85,6 +90,7 @@ public abstract class Tower : MonoBehaviour
         if (upgradeButtonUI != null)
         {
             //Debug.Log("Upgrade button UI found: " + upgradeButtonUI.name);
+            ShowRange(false); // Hide range visualizer initially
             upgradeButtonUI.SetActive(false);
         }
         else
@@ -95,6 +101,7 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void Update()
     {
+        rangeVisualizer.transform.localScale = Vector3.one * range * 1f;
         if (!isBuilt)
         {
             buildTimer -= Time.deltaTime;
@@ -104,63 +111,88 @@ public abstract class Tower : MonoBehaviour
             }
             return; // Skip the rest of Update until built
         }
-        if (!PauseMenu.isPaused) { 
-            
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject nearest = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (GameObject enemy in enemies)
+        if (!PauseMenu.isPaused)
         {
-            float dist = Vector3.Distance(transform.position, enemy.transform.position);
-            if (dist < shortestDistance && dist <= range)
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            GameObject nearest = null;
+            float shortestDistance = Mathf.Infinity;
+
+            foreach (GameObject enemy in enemies)
             {
-                shortestDistance = dist;
-                nearest = enemy;
+                float dist = Vector3.Distance(transform.position, enemy.transform.position);
+                if (dist < shortestDistance && dist <= range)
+                {
+                    shortestDistance = dist;
+                    nearest = enemy;
+                }
             }
-        }
 
-        if (nearest != null)
-        {
-            if (fireCountdown <= 0f)
-            {      
-                Shoot(nearest.transform);
-                fireCountdown = 1f / fireRate;
+            if (nearest != null)
+            {
+                if (fireCountdown <= 0f)
+                {
+                    Shoot(nearest.transform);
+                    fireCountdown = 1f / fireRate;
+                }
             }
-        }
 
-        fireCountdown -= Time.deltaTime;
+            fireCountdown -= Time.deltaTime;
 
-            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null && level != 3)
+            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null )
             {
                 float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-                //Debug.Log("Distance to player: " + distToPlayer);
+
                 if (distToPlayer <= upgradeButtonDisplayRange)
                 {
                     if (!upgradeUIActive)
                     {
+                        // Hide previous tower's range/UI if any
+                        if (activeRangeTower != null && activeRangeTower != this)
+                        {
+                            activeRangeTower.HideUpgradeUI();
+                        }
+
                         Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-                        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+                        if (level == 3)
+                        {
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+                        }
+                        else
+                        {
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+                        }
                         upgradeButtonUI.SetActive(true);
-                        //Debug.Log("Upgrade UI activated for tower: " + gameObject.name);
                         upgradeUIActive = true;
+
+                        ShowRange(true);
+
+                        // Set this tower as the active one showing range
+                        activeRangeTower = this;
                     }
-                    // Move upgrade button UI to the upgradeTowerPoint position
-                    //upgradeButtonUI.transform.position = upgradeTowerPoint.position;
-                    //Debug.Log("Upgrade button UI position set to: " + upgradeTowerPoint.position);
-                    //upgradeButtonUI.transform.rotation = Quaternion.identity; // Optional: Keep UI upright
                 }
                 else
                 {
                     if (upgradeUIActive)
                     {
-                        upgradeButtonUI.SetActive(false);
-                        upgradeUIActive = false;
-                        //Debug.Log("Upgrade UI deactivated for tower: " + gameObject.name);
+                        HideUpgradeUI();
+
+                        // Clear active tower if this was the active one
+                        if (activeRangeTower == this)
+                        {
+                            activeRangeTower = null;
+                        }
                     }
                 }
             }
         }
+    }
+
+    // Helper method to hide UI and range
+    public void HideUpgradeUI()
+    {
+        upgradeButtonUI.SetActive(false);
+        ShowRange(false);
+        upgradeUIActive = false;
     }
 
     protected virtual void Shoot(Transform target)
@@ -208,7 +240,7 @@ public abstract class Tower : MonoBehaviour
         switch (level)
         {
             case 0:
-            case 1: 
+            case 1:
             case 2:
                 if (upgradeCost < Money.Instance.GetMoney())
                 {
@@ -218,8 +250,8 @@ public abstract class Tower : MonoBehaviour
                     level++;
                     if (level == 3)
                     {
-                        upgradeButtonUI.SetActive(false);
-                        upgradeUIActive = false;
+                        Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
+                        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
                     }
                 }
                 else
@@ -235,22 +267,22 @@ public abstract class Tower : MonoBehaviour
 
     protected virtual void improveTowerStatistics()
     {
-        switch(level)
+        switch (level)
         {
             case 0:
                 range += 0.25f;
                 fireRate += 0.25f;
                 upgradeCost += 100;
-                star1.enabled = true; 
+                star1.enabled = true;
                 break;
-             case 1:
+            case 1:
                 range += 0.5f;
                 fireRate += 0.5f;
                 upgradeCost += 200;
                 star1.enabled = false;
                 star2.enabled = true;
                 break;
-             case 2:
+            case 2:
                 range += 1f;
                 fireRate += 1f;
                 star2.enabled = false;
@@ -263,9 +295,21 @@ public abstract class Tower : MonoBehaviour
     {
         Debug.Log("Upgrade button clicked!");
         upgradeTower();
-        Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+        if (level == 3)
+        {
+            Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+        }
+        else
+        {
+            Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+        }
+        
     }
 
-  
+    public void ShowRange(bool show)
+    {
+        rangeVisualizer.SetActive(show);
+    }
 }

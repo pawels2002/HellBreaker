@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 inputDirection = Vector3.zero;
             }
-            Vector3 spawnPos = transform.position + transform.forward * 2f;
+            Vector3 spawnPos = transform.position + transform.forward * 1f;
             spawnPos.y = 1f;
 
             if (isInvulnerable)

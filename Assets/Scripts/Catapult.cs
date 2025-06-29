@@ -30,7 +30,7 @@ public class Catapult : Tower
 
     private IEnumerator DelayedShoot(Transform target)
     {
-        yield return new WaitForSeconds(0.13f); // Wait for 0.3 seconds before firing
+        yield return new WaitForSeconds(0.3f); // Wait for 0.3 seconds before firing
 
         base.Shoot(target);
 

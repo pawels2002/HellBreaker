@@ -4,13 +4,23 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - animator: {instanceID: 0}
   - bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
   - firePoint: {fileID: 7093602588295518191, guid: bc80483f6b967224fba6882553397607, type: 3}
+  - firePointFront: {instanceID: 0}
+  - firePointBack: {instanceID: 0}
+  - firePointRight: {instanceID: 0}
+  - firePointLeft: {instanceID: 0}
+  - star1: {instanceID: 0}
+  - star2: {instanceID: 0}
+  - star3: {instanceID: 0}
   - spriteRenderer: {instanceID: 0}
   - frontView: {instanceID: 0}
   - backView: {instanceID: 0}
   - sideView: {instanceID: 0}
-  - moneySystem: {instanceID: 0}
+  - upgradeButtonUI: {instanceID: 0}
+  - upgradeTowerPoint: {instanceID: 0}
+  - rangeVisualizer: {fileID: 3678094306251843621, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

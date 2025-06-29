@@ -85,32 +85,49 @@ public class MagicCrystal : Tower
                     fireCountdown = 1f / fireRate; // Reset cooldown after firing
                 }
             }
-            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null && level != 3)
+            if (playerTransform != null && upgradeButtonUI != null && upgradeTowerPoint != null)
             {
                 float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-                //Debug.Log("Distance to player: " + distToPlayer);
+
                 if (distToPlayer <= upgradeButtonDisplayRange)
                 {
                     if (!upgradeUIActive)
                     {
+                        // Hide previous tower's range/UI if any
+                        if (activeRangeTower != null && activeRangeTower != this)
+                        {
+                            activeRangeTower.HideUpgradeUI();
+                        }
+
                         Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-                        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+                        if (level == 3)
+                        {
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+                        }
+                        else
+                        {
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+                        }
                         upgradeButtonUI.SetActive(true);
-                        //Debug.Log("Upgrade UI activated for tower: " + gameObject.name);
                         upgradeUIActive = true;
+
+                        ShowRange(true);
+
+                        // Set this tower as the active one showing range
+                        activeRangeTower = this;
                     }
-                    // Move upgrade button UI to the upgradeTowerPoint position
-                    //upgradeButtonUI.transform.position = upgradeTowerPoint.position;
-                    //Debug.Log("Upgrade button UI position set to: " + upgradeTowerPoint.position);
-                    //upgradeButtonUI.transform.rotation = Quaternion.identity; // Optional: Keep UI upright
                 }
                 else
                 {
                     if (upgradeUIActive)
                     {
-                        upgradeButtonUI.SetActive(false);
-                        upgradeUIActive = false;
-                        //Debug.Log("Upgrade UI deactivated for tower: " + gameObject.name);
+                        HideUpgradeUI();
+
+                        // Clear active tower if this was the active one
+                        if (activeRangeTower == this)
+                        {
+                            activeRangeTower = null;
+                        }
                     }
                 }
             }

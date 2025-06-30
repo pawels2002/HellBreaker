@@ -4,11 +4,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 3f;
+    public int prize = 10;
+    public int maxHP = 100;
+    public int damage = 10;
 
     private Transform target;
     private int waypointIndex = 0;
-
-    public int maxHP = 100;//
     private int currentHP;//
 
     public Vector3 CurrentDirection { get; private set; }
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
     {
         if (waypointIndex >= Waypoints.points.Length - 1)
         {
+            Spawner.onEnemyDestroy.Invoke();
             Destroy(gameObject);
             return;
         }
@@ -62,6 +64,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()//
     {
+        Spawner.onEnemyDestroy.Invoke();
+        Money.Instance.AddMoney(prize);
         Debug.Log($"{gameObject.name} died!");
         Destroy(gameObject);
     }

@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     private Vector3 direction;
     public float speed = 10f;
     public float lifetime = 3f; // bullet gets destroyed after this time
+    public int damage = 10;
 
     public void Seek(Transform _target)
     {
@@ -58,8 +59,11 @@ public class Bullet : MonoBehaviour
     {
         if (target != null)
         {
-            Destroy(target.gameObject); // Just destroy for demo
-            Money.Instance.AddMoney(5); // Add money
+            Enemy enemy = target.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
         }
         Destroy(gameObject);
     }

@@ -10486,7 +10486,7 @@ GameObject:
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -10502,9 +10502,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747154354c5587042a9793b0d97abc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4299737451682476109, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
-  spawnPoint: {fileID: 504620317}
+  enemyPrefab:
+  - {fileID: 15623450940303642, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
+  - {fileID: 15623450940303642, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
+  - {fileID: 15623450940303642, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
+  - {fileID: 15623450940303642, guid: 1b5f0914933d0024fbf4a7c0de745360, type: 3}
+  baseEnemies: 8
+  enemiesPerSecond: 0.5
   timeBetweenWaves: 5
+  difficultyScalingFactor: 0.75
+  spawnPoint: {fileID: 504620317}
 --- !u!4 &1134869290
 Transform:
   m_ObjectHideFlags: 0
@@ -19580,6 +19587,10 @@ PrefabInstance:
     - target: {fileID: 4869094261186822106, guid: 241c26c34667d384890fca620c22d3c6, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869094261186822106, guid: 241c26c34667d384890fca620c22d3c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8368214734148524386, guid: 241c26c34667d384890fca620c22d3c6, type: 3}
       propertyPath: m_UiScaleMode

@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 720f;
     public float rotationStep = 90f;
-
+    public int playerDamage = 100;
     public float attackCooldown = 0.5f; 
     public float lastAttackTime = -Mathf.Infinity;
     float attackRadius = 1.5f; 
@@ -188,9 +188,10 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (!isInvulnerable && !isDead && collision.gameObject.GetComponent<Enemy>() != null)
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (!isInvulnerable && !isDead && enemy != null)
         {
-            TakeDamage(10);
+            TakeDamage(enemy.damage);
             StartCoroutine(HurtRoutine());
         }
         if (HealthPlayer.Instance.GetHealth() <= 0)
@@ -315,8 +316,7 @@ public class PlayerMovement : MonoBehaviour
             float targetAngle = Vector3.Angle(attackDir, toTarget);
             if (targetAngle <= angle)
             {
-                Destroy(enemy.gameObject);
-                Money.Instance.AddMoney(5);
+                enemy.TakeDamage(playerDamage);
                 hitAny = true;
             }
         }

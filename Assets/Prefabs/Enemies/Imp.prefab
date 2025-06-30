@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   prize: 5
-  maxHP: 100
+  maxHP: 200
   damage: 5
 --- !u!95 &6909354516273334578
 Animator:

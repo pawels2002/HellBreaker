@@ -2007,6 +2007,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793046852}
   m_CullTransparentMesh: 1
+--- !u!1 &818627743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 818627745}
+  - component: {fileID: 818627744}
+  m_Layer: 0
+  m_Name: _GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &818627744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818627743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47d4432a7e017e40995cfcca4931a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castleHealth: 100
+  currentLevel: 1
+  maxLevels: 3
+--- !u!4 &818627745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818627743}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.70701, y: 0, z: -0.8377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859972755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,13 +2611,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab:
   - {fileID: 15623450940303642, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
-  - {fileID: 15623450940303642, guid: 1b5f0914933d0024fbf4a7c0de745360, type: 3}
-  - {fileID: 0}
+  - {fileID: 15623450940303642, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
+  - {fileID: 15623450940303642, guid: efc5bd127835c28438e1c1b69868c272, type: 3}
   baseEnemies: 8
-  enemiesPerSecond: 0.5
+  enemiesPerSecond: 4
   timeBetweenWaves: 5
-  difficultyScalingFactor: 0.75
+  difficultyScalingFactor: 0
   spawnPoint: {fileID: 504620317}
+  maxWaves: 5
 --- !u!4 &1134869290
 Transform:
   m_ObjectHideFlags: 0
@@ -6196,3 +6244,4 @@ SceneRoots:
   - {fileID: 6627593831314848889}
   - {fileID: 9066151635790792555}
   - {fileID: 4136973183241889922}
+  - {fileID: 818627745}

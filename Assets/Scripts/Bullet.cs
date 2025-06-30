@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     private Vector3 direction;
     public float speed = 10f;
     public float lifetime = 3f; // bullet gets destroyed after this time
-    public int damage = 10;
+    private int damage = 80;
 
     public void Seek(Transform _target)
     {
@@ -53,6 +53,11 @@ public class Bullet : MonoBehaviour
             // Option 2: Uncomment below to keep flying forward
             // transform.Translate(direction * speed * Time.deltaTime, Space.World);
         }
+    }
+
+    public void SetDamage(int towerDamage)
+    {
+        damage = towerDamage;
     }
 
     void HitTarget()

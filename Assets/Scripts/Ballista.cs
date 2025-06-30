@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Ballista : Tower
 {
+    [SerializeField] public int damage = 80;
+
     public GameObject arrowFrontPrefab;
     public GameObject arrowBackPrefab;
     public GameObject arrowSidePrefab;
@@ -69,6 +71,7 @@ public class Ballista : Tower
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
         {
+            bullet.SetDamage(damage);
             bullet.Seek(target);
         }
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +14,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
     [SerializeField] public Transform spawnPoint;
+    [SerializeField] public int maxWaves = 5;
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy;
@@ -61,8 +63,17 @@ public class Spawner : MonoBehaviour
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
-        currentWave++;
-        StartCoroutine(StartWave());
+
+        if (currentWave < maxWaves)
+        {
+            currentWave++;
+            StartCoroutine(StartWave());
+        }
+        else
+        {
+            Debug.Log("All waves completed!");
+            GameManager.instance.LevelCompleted();
+        }
     }
 
     private void EnemyDestroyed()

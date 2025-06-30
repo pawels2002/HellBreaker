@@ -488,6 +488,7 @@ MonoBehaviour:
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 7042738975893338349}
   upgradeButtonDisplayRange: 3
+  isBuilt: 0
   rangeVisualizer: {fileID: 4630202983779128595}
 --- !u!65 &8702602639008258165
 BoxCollider:
@@ -634,8 +635,60 @@ PrefabInstance:
     m_TransformParent: {fileID: 7424426423305019099}
     m_Modifications:
     - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_RayTracingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_SpriteTileMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_RendererPriority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_SmallMeshCulling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_RayTraceProcedural
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771182484848964898, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3678094306251843621, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}
       propertyPath: m_Name

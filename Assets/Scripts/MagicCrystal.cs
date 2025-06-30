@@ -7,6 +7,7 @@ using TMPro;
 
 public class MagicCrystal : Tower
 {
+    [SerializeField] public int damage = 80;
     protected override void Awake()
     { 
         range = 3f; 
@@ -20,9 +21,13 @@ public class MagicCrystal : Tower
     // You can override Shoot() or Update() to customize behavior
     protected override void Shoot(Transform target)
     {
-        base.Shoot(target);
-        
-        
+        GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        if (bullet != null)
+        {
+            bullet.SetDamage(damage); // Pass crystal's damage to bullet
+            bullet.Seek(target);
+        }
     }
 
     private IEnumerator DelayedShoot(GameObject[] enemies)
@@ -31,22 +36,22 @@ public class MagicCrystal : Tower
         {
             animator.SetBool("isFiring", true);
         }
-        yield return new WaitForSeconds(0.35f); // Wait for 0.3 seconds before firing
+        yield return new WaitForSeconds(0.35f);
 
         foreach (GameObject enemy in enemies)
         {
-            // Unity null check: handles destroyed objects
             if (enemy == null) continue;
 
             float dist = Vector3.Distance(transform.position, enemy.transform.position);
             if (dist <= range)
             {
-                Shoot(enemy.transform); // Shoot each enemy in range
+                Shoot(enemy.transform);
             }
         }
+
         if (animator != null)
         {
-            yield return new WaitForSeconds(0.40f); // Short delay for animation finish
+            yield return new WaitForSeconds(0.40f);
             animator.SetBool("isFiring", false);
         }
     }

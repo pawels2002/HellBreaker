@@ -8,21 +8,26 @@ public class ChooseLevel : MonoBehaviour
 
     public void ChooseLevel1()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        SceneManager.LoadScene("Level1");
     }
 
     public void ChooseLevel2()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        SceneManager.LoadScene("Level2");
     }
 
     public void ChooseLevel3()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);
+        SceneManager.LoadScene("Level3");
     }
 
     public void Return()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public void GoToCredits()
+    {
+        SceneManager.LoadScene("CreditsScene");
     }
 }

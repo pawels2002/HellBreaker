@@ -1,4 +1,6 @@
 //using System.Diagnostics;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -11,6 +13,9 @@ public class Enemy : MonoBehaviour
     private Transform target;
     private int waypointIndex = 0;
     private int currentHP;//
+    private Renderer[] renderers;
+    private Color originalColor;
+    private bool isFlashing = false;
 
     public Vector3 CurrentDirection { get; private set; }
 
@@ -23,6 +28,11 @@ public class Enemy : MonoBehaviour
     void Awake()//
     {
         currentHP = maxHP;
+        renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0)
+        {
+            originalColor = renderers[0].material.color;
+        }
     }
 
     private void Update()
@@ -43,6 +53,7 @@ public class Enemy : MonoBehaviour
     {
         if (waypointIndex >= Waypoints.points.Length - 1)
         {
+            GameManager.instance.CastleTakeDamage(damage);
             Spawner.onEnemyDestroy.Invoke();
             Destroy(gameObject);
             return;
@@ -54,11 +65,44 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int amount)//
     {
+        
         currentHP -= amount;
         Debug.Log($"{gameObject.name} took {amount} damage. HP left: {currentHP}");
         if (currentHP <= 0)
         {
             Die();
+        }
+
+        if(!isFlashing)
+        {
+            StartCoroutine(FlashRed());
+        }
+    }
+
+    private IEnumerator FlashRed()
+    {
+        isFlashing = true;
+        float timer = 0f;
+        bool isRed = false;
+
+        while (timer < 0.37f)
+        {
+            SetEnemyColor(isRed ? Color.red : originalColor);
+            isRed = !isRed;
+            yield return new WaitForSeconds(0.07f);
+            timer += 0.07f;
+        }
+
+        SetEnemyColor(originalColor);
+        isFlashing = false;
+    }
+
+    private void SetEnemyColor(Color color)
+    {
+        if (renderers == null) return;
+        foreach (var rend in renderers)
+        {
+            rend.material.color = color;
         }
     }
 
@@ -68,5 +112,14 @@ public class Enemy : MonoBehaviour
         Money.Instance.AddMoney(prize);
         Debug.Log($"{gameObject.name} died!");
         Destroy(gameObject);
+    }
+
+    private void SetPlayerColor(Color color)
+    {
+        if (renderers == null) return;
+        foreach (var rend in renderers)
+        {
+            rend.material.color = color;
+        }
     }
 }

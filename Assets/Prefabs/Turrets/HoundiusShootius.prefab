@@ -581,6 +581,7 @@ MonoBehaviour:
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 8212653050797928550}
   upgradeButtonDisplayRange: 3
+  isBuilt: 0
   rangeVisualizer: {fileID: 7620349433879498464}
 --- !u!65 &2469555205985295604
 BoxCollider:

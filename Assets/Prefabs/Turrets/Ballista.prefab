@@ -579,9 +579,12 @@ MonoBehaviour:
   backView: {fileID: 21300000, guid: 8712fa88ad06c854e9d5d6b8bc52e3a0, type: 3}
   sideView: {fileID: 21300000, guid: 7ad0682c66ec9164b96787cc06cf7dec, type: 3}
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
+  sellTowerButtonUI: {fileID: 0}
   upgradeTowerPoint: {fileID: 6638598842024816640}
   upgradeButtonDisplayRange: 3
+  isBuilt: 0
   rangeVisualizer: {fileID: 6220783410307301936}
+  damage: 80
   arrowFrontPrefab: {fileID: 799909378551477840, guid: 7b2276bdd3cecf64b807ebfb9cab3761, type: 3}
   arrowBackPrefab: {fileID: 3988974269695164957, guid: ed4452ee949d05a428248c4a29df9306, type: 3}
   arrowSidePrefab: {fileID: 7598965138003219928, guid: 2423d3d1b863b554789bc4ffa5c928f3, type: 3}

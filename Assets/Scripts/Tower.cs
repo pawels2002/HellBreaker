@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public abstract class Tower : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public abstract class Tower : MonoBehaviour
 
     [Header("UI")]
     public GameObject upgradeButtonUI;
+    //public GameObject sellTowerButtonUI;
     public Transform upgradeTowerPoint;  //since the button is in UI, this can be deleted - leaving this just in case
     public float upgradeButtonDisplayRange = 3f;
     protected bool upgradeUIActive = false;
@@ -65,13 +67,20 @@ public abstract class Tower : MonoBehaviour
         transform.rotation = Quaternion.Euler(45f, 0f, 0f);
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         upgradeButtonUI = Instantiate(upgradeButtonUI, vec3, Quaternion.identity);
+        // sellTowerButtonUI = Instantiate(sellTowerButtonUI, vec3, Quaternion.identity);
         //upgradeButtonUI.transform.position = upgradeTowerPoint.position;
         //upgradeButtonUI.transform.rotation = Quaternion.Euler(45f, 0f, 0f);
-        Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-        if (btn != null)
+        Button[] allButtons = upgradeButtonUI.GetComponentsInChildren<Button>();
+
+        // Get specific button by GameObject name
+        Button btn = allButtons.FirstOrDefault(b => b.gameObject.name == "UpgradeButton");
+        Button sellBtn = allButtons.FirstOrDefault(b => b.gameObject.name == "SellButton");
+        sellBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Sell Tower: " + cost.ToString(); // Set sell button text
+        if (btn != null || sellBtn != null)
         {
             Debug.Log("Setting the listener");
             btn.onClick.AddListener(OnButtonClick);
+            sellBtn.onClick.AddListener(SellTower);
         }
         else
         {
@@ -92,6 +101,7 @@ public abstract class Tower : MonoBehaviour
             //Debug.Log("Upgrade button UI found: " + upgradeButtonUI.name);
             ShowRange(false); // Hide range visualizer initially
             upgradeButtonUI.SetActive(false);
+            //sellTowerButtonUI.SetActive(false); // Hide sell button initially
         }
         else
         {
@@ -162,6 +172,7 @@ public abstract class Tower : MonoBehaviour
                             btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
                         }
                         upgradeButtonUI.SetActive(true);
+                  //      sellTowerButtonUI.SetActive(true); // Show sell button
                         upgradeUIActive = true;
 
                         ShowRange(true);
@@ -191,6 +202,7 @@ public abstract class Tower : MonoBehaviour
     public void HideUpgradeUI()
     {
         upgradeButtonUI.SetActive(false);
+       // sellTowerButtonUI.SetActive(false); // Hide sell button
         ShowRange(false);
         upgradeUIActive = false;
     }
@@ -311,5 +323,17 @@ public abstract class Tower : MonoBehaviour
     public void ShowRange(bool show)
     {
         rangeVisualizer.SetActive(show);
+    }
+
+    public void SellTower()
+    {
+        Money.Instance.AddMoney(cost); // TODO: think about how much money to give back
+        Destroy(gameObject);
+        HideUpgradeUI();
+        ShowRange(false);
+        if (activeRangeTower == this)
+        {
+            activeRangeTower = null; // Clear active tower if this was the one
+        }
     }
 }

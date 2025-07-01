@@ -107,11 +107,11 @@ public class MagicCrystal : Tower
                         Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
                         if (level == 3)
                         {
-                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "MAX LEVEL";
                         }
                         else
                         {
-                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "UPGRADE: " + upgradeCost.ToString();
                         }
                         upgradeButtonUI.SetActive(true);
                         upgradeUIActive = true;

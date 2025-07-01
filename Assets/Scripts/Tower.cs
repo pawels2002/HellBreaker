@@ -1,9 +1,10 @@
 using System;
+using System.Linq;
+using TMPro;
 //using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Linq;
+
 
 public abstract class Tower : MonoBehaviour
 {
@@ -36,7 +37,11 @@ public abstract class Tower : MonoBehaviour
     public Sprite frontView;
     public Sprite backView;
     public Sprite sideView;
+    public Sprite buttonSprite;
+    public TMP_FontAsset buttonFont;
+    public float buttonFontSize = 16f;
     protected Vector3 inputDirection;
+    
 
     [Header("UI")]
     public GameObject upgradeButtonUI;
@@ -74,8 +79,46 @@ public abstract class Tower : MonoBehaviour
 
         // Get specific button by GameObject name
         Button btn = allButtons.FirstOrDefault(b => b.gameObject.name == "UpgradeButton");
+        if (btn != null)
+        {
+            Image btnImage = btn.GetComponent<Image>();
+            if (btnImage != null && buttonSprite != null)
+                btnImage.sprite = buttonSprite;
+            RectTransform btnRect = btn.GetComponent<RectTransform>();
+            if (btnRect != null)
+            {
+                Vector2 size = btnRect.sizeDelta;
+                btnRect.sizeDelta = new Vector2(size.x, size.y * 2f);
+            }
+            TextMeshProUGUI btnText = btn.GetComponentInChildren<TextMeshProUGUI>();
+            if (btnText != null)
+            {
+                if (buttonFont != null)
+                    btnText.font = buttonFont;
+                btnText.fontSize = buttonFontSize;
+            }
+        }
         Button sellBtn = allButtons.FirstOrDefault(b => b.gameObject.name == "SellButton");
-        sellBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Sell Tower: " + cost.ToString(); // Set sell button text
+        if (sellBtn != null)
+        {
+            Image sellBtnImage = sellBtn.GetComponent<Image>();
+            if (sellBtnImage != null && buttonSprite != null)
+                sellBtnImage.sprite = buttonSprite;
+            RectTransform sellBtnRect = sellBtn.GetComponent<RectTransform>();
+            if (sellBtnRect != null)
+            {
+                Vector2 size = sellBtnRect.sizeDelta;
+                sellBtnRect.sizeDelta = new Vector2(size.x, size.y * 2f);
+            }
+            TextMeshProUGUI sellBtnText = sellBtn.GetComponentInChildren<TextMeshProUGUI>();
+            if (sellBtnText != null)
+            {
+                if (buttonFont != null)
+                    sellBtnText.font = buttonFont;
+                sellBtnText.fontSize = buttonFontSize;
+            }
+        }
+        sellBtn.GetComponentInChildren<TextMeshProUGUI>().text = "SELL: " + cost.ToString(); // Set sell button text
         if (btn != null || sellBtn != null)
         {
             Debug.Log("Setting the listener");
@@ -165,11 +208,11 @@ public abstract class Tower : MonoBehaviour
                         Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
                         if (level == 3)
                         {
-                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "MAX LEVEL";
                         }
                         else
                         {
-                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+                            btn.GetComponentInChildren<TextMeshProUGUI>().text = "UPGRADE: " + upgradeCost.ToString();
                         }
                         upgradeButtonUI.SetActive(true);
                   //      sellTowerButtonUI.SetActive(true); // Show sell button
@@ -254,7 +297,7 @@ public abstract class Tower : MonoBehaviour
             case 0:
             case 1:
             case 2:
-                if (upgradeCost < Money.Instance.GetMoney())
+                if (upgradeCost <= Money.Instance.GetMoney())
                 {
                     Money.Instance.RemoveMoney(upgradeCost);
                     improveTowerStatistics();
@@ -263,7 +306,7 @@ public abstract class Tower : MonoBehaviour
                     if (level == 3)
                     {
                         Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-                        btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+                        btn.GetComponentInChildren<TextMeshProUGUI>().text = "MAX LEVEL";
                     }
                 }
                 else
@@ -310,12 +353,12 @@ public abstract class Tower : MonoBehaviour
         if (level == 3)
         {
             Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Max level!";
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = "MAX LEVEL";
         }
         else
         {
             Button btn = upgradeButtonUI.GetComponentInChildren<Button>();
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade: " + upgradeCost.ToString();
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = "UPGRADE: " + upgradeCost.ToString();
         }
         
     }

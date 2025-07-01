@@ -468,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7508370073482062355}
   range: 2
-  fireRate: 0.75
+  fireRate: 1
   cost: 50
   level: 0
   upgradeCost: 0
@@ -485,12 +485,15 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: 113462628ddffe046a6f3233f68e43d8, type: 3}
   backView: {fileID: 21300000, guid: c97fc84df6788c14ba9ac884a34d35ef, type: 3}
   sideView: {fileID: 21300000, guid: dc7ea011eb4c77e44bd74b46eab38331, type: 3}
+  buttonSprite: {fileID: 21300000, guid: 0311906b1766a0f48b09a17adc4cea1d, type: 3}
+  buttonFont: {fileID: 11400000, guid: 645653c931c45c64e998687357938f6e, type: 2}
+  buttonFontSize: 13
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 7042738975893338349}
   upgradeButtonDisplayRange: 3
   isBuilt: 0
   rangeVisualizer: {fileID: 4630202983779128595}
-  damage: 80
+  damage: 100
 --- !u!65 &8702602639008258165
 BoxCollider:
   m_ObjectHideFlags: 0

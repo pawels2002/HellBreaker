@@ -5,8 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - animator: {instanceID: 0}
-  - bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
-  - firePoint: {fileID: 7093602588295518191, guid: bc80483f6b967224fba6882553397607, type: 3}
+  - bulletPrefab: {instanceID: 0}
+  - firePoint: {instanceID: 0}
   - firePointFront: {instanceID: 0}
   - firePointBack: {instanceID: 0}
   - firePointRight: {instanceID: 0}
@@ -18,6 +18,7 @@ MonoImporter:
   - frontView: {instanceID: 0}
   - backView: {instanceID: 0}
   - sideView: {instanceID: 0}
+  - buttonSprite: {fileID: 21300000, guid: 0311906b1766a0f48b09a17adc4cea1d, type: 3}
   - upgradeButtonUI: {instanceID: 0}
   - upgradeTowerPoint: {instanceID: 0}
   - rangeVisualizer: {fileID: 3678094306251843621, guid: 95e624b6f4e58a445889299dcb6a93aa, type: 3}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     GameObject gameOverScreen;
     GameObject winLevelScreen;
     public int castleHealth = 100;
+    public TextMeshProUGUI castleHealthText;
     public int currentLevel = 1;
     public int maxLevels = 3;
     private bool gameEnded = false;
@@ -42,9 +44,19 @@ public class GameManager : MonoBehaviour
         if (scene.name.StartsWith("Level"))
         {
             castleHealth = 100;
+
             gameEnded = false;
             Time.timeScale = 1f;
         }
+    }
+    public int GetCastleHealth()
+    {
+        return castleHealth;
+    }
+    void Update()
+    {
+        if (castleHealthText != null)
+            castleHealthText.text = castleHealth.ToString();
     }
 
     private void AssignSceneUI()
@@ -56,6 +68,12 @@ public class GameManager : MonoBehaviour
             gameOverScreen.SetActive(false);
         if (winLevelScreen != null)
             winLevelScreen.SetActive(false);
+
+        GameObject healthTextObj = GameObject.Find("castleHealthText");
+        if (healthTextObj != null)
+            castleHealthText = healthTextObj.GetComponent<TextMeshProUGUI>();
+        else
+            castleHealthText = null;
     }
 
 

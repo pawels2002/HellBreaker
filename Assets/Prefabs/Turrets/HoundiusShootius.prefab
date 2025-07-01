@@ -562,7 +562,7 @@ MonoBehaviour:
   animator: {fileID: 3245939566499414440}
   range: 4
   fireRate: 2
-  cost: 300
+  cost: 400
   level: 0
   upgradeCost: 0
   bulletPrefab: {fileID: 6308576174595423302, guid: 35fe4d243e040044fa937a9b8c92e8d5, type: 3}
@@ -578,12 +578,15 @@ MonoBehaviour:
   frontView: {fileID: 21300000, guid: 61edd903a7d31714cb2f74d08ddccc1e, type: 3}
   backView: {fileID: 21300000, guid: d7ff7ec6b2342bd47901463745f82bf4, type: 3}
   sideView: {fileID: 21300000, guid: 47851a27374b42948a469f9881fcd46e, type: 3}
+  buttonSprite: {fileID: 21300000, guid: 0311906b1766a0f48b09a17adc4cea1d, type: 3}
+  buttonFont: {fileID: 11400000, guid: 645653c931c45c64e998687357938f6e, type: 2}
+  buttonFontSize: 13
   upgradeButtonUI: {fileID: 9008899512479765369, guid: f5e1745e2cb785944afc8a8ce3834520, type: 3}
   upgradeTowerPoint: {fileID: 8212653050797928550}
   upgradeButtonDisplayRange: 3
   isBuilt: 0
   rangeVisualizer: {fileID: 7620349433879498464}
-  damage: 80
+  damage: 75
 --- !u!65 &2469555205985295604
 BoxCollider:
   m_ObjectHideFlags: 0

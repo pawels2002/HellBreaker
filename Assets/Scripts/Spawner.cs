@@ -45,7 +45,6 @@ public class Spawner : MonoBehaviour
             onEnemyDestroy = new UnityEvent();
         }
         onEnemyDestroy.AddListener(EnemyDestroyed);
-        Debug.Log("onEnemy");
     }
 
     private void Start()
@@ -77,12 +76,11 @@ public class Spawner : MonoBehaviour
 
         if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
         {
-            SpawnEnemy();
             enemiesLeftToSpawn--;
+            SpawnEnemy(); 
             timeSinceLastSpawn = 0f;
         }
 
-        // End wave as soon as all enemies have been spawned
         if (enemiesLeftToSpawn == 0 && enemiesAlive == 0 && isSpawning)
         {
             EndWave();
@@ -130,7 +128,7 @@ public class Spawner : MonoBehaviour
     private void EnemyDestroyed()
     {
         enemiesAlive--;
-        Debug.Log("EnemyDestroyed");
+        Debug.Log("Enemy Destroyed, current enemies alive: "+enemiesAlive);
     }
 
     private void UpdateWaveCounter()
@@ -145,6 +143,7 @@ public class Spawner : MonoBehaviour
         GameObject prefabToSpawn = enemyPrefab[index];
         Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
         enemiesAlive++;
+        Debug.Log("Enemy Spawned, current enemies alive: " + enemiesAlive);
         waveStarted = true;
     }
 

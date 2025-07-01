@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private Renderer[] renderers;
     private Color originalColor;
     private bool isFlashing = false;
+    private bool isDead = false;
 
     public AudioClip deathClip;
     private AudioSource audioSource;
@@ -56,9 +57,13 @@ public class Enemy : MonoBehaviour
     {
         if (waypointIndex >= Waypoints.points.Length - 1)
         {
-            GameManager.instance.CastleTakeDamage(damage);
-            Spawner.onEnemyDestroy.Invoke();
-            Destroy(gameObject);
+            if (!isDead)
+            {
+                isDead = true;
+                GameManager.instance.CastleTakeDamage(damage);
+                Spawner.onEnemyDestroy.Invoke();
+                Destroy(gameObject);
+            }
             return;
         }
 
@@ -111,6 +116,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
         Spawner.onEnemyDestroy.Invoke();
         Money.Instance.AddMoney(prize);
 

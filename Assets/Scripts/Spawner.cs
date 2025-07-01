@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,10 +12,16 @@ public class Spawner : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
     [SerializeField] private float enemiesPerSecond = 0.5f;
-    [SerializeField] private float timeBetweenWaves = 5f;
+    [SerializeField] private float timeBetweenWaves = 20f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
     [SerializeField] public Transform spawnPoint;
     [SerializeField] public int maxWaves = 5;
+    [SerializeField] private RectTransform clockArrow;
+
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI waveCounterText;
+
 
     [Header("Events")]
     public static UnityEvent onEnemyDestroy;
@@ -24,6 +31,12 @@ public class Spawner : MonoBehaviour
     private int enemiesAlive;
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
+    private float waveCountdown = 0f;
+    private bool isWaitingForWave = false;
+    private int totalEnemiesThisWave = 0;
+    float startAngle = 45f;
+    private bool waveStarted = false;
+
 
     private void Awake()
     {
@@ -37,23 +50,40 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartWave());
+        UpdateWaveCounter();
+        StartCoroutine(WaveCooldownMethod());
     }
 
     private void Update()
     {
+        if (isWaitingForWave)
+        {
+            waveCountdown -= Time.deltaTime;
+            float t = Mathf.Clamp01(waveCountdown / timeBetweenWaves);
+            if (clockArrow != null)
+                clockArrow.localRotation = Quaternion.Euler(0, 0, startAngle - 360f * (1 - t));
+            if (waveCountdown <= 0f)
+                isWaitingForWave = false;
+            return;
+        }
         if (!isSpawning) return;
         timeSinceLastSpawn += Time.deltaTime;
+        float progress = 1f;
+        if (totalEnemiesThisWave > 0)
+            progress = (float)(enemiesLeftToSpawn + enemiesAlive) / totalEnemiesThisWave;
 
-        if (timeSinceLastSpawn >= (1f/enemiesPerSecond) && enemiesLeftToSpawn > 0)
+        if (clockArrow != null)
+            clockArrow.localRotation = Quaternion.Euler(0, 0, startAngle - 360f * (1 - progress));
+
+        if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
         {
             SpawnEnemy();
             enemiesLeftToSpawn--;
-            enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
 
-        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
+        // End wave as soon as all enemies have been spawned
+        if (enemiesLeftToSpawn == 0 && enemiesAlive == 0 && isSpawning)
         {
             EndWave();
         }
@@ -67,7 +97,8 @@ public class Spawner : MonoBehaviour
         if (currentWave < maxWaves)
         {
             currentWave++;
-            StartCoroutine(StartWave());
+            UpdateWaveCounter();
+            StartCoroutine(WaveCooldownMethod());
         }
         else
         {
@@ -76,10 +107,36 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    private IEnumerator WaveCooldownMethod()
+    {
+        waveCountdown = timeBetweenWaves;
+        isWaitingForWave = true;
+        while (waveCountdown > 0f)
+        {
+            waveCountdown -= Time.deltaTime;
+            float t = Mathf.Clamp01(waveCountdown / timeBetweenWaves);
+            if (clockArrow != null)
+                clockArrow.localRotation = Quaternion.Euler(0, 0, startAngle - 360f * (1 - t));
+            yield return null;
+        }
+        isWaitingForWave = false;
+        isSpawning = true;
+        enemiesLeftToSpawn = EnemiesPerWave();
+        totalEnemiesThisWave = enemiesLeftToSpawn;
+        waveStarted = false;
+
+    }
+
     private void EnemyDestroyed()
     {
         enemiesAlive--;
         Debug.Log("EnemyDestroyed");
+    }
+
+    private void UpdateWaveCounter()
+    {
+        if (waveCounterText != null)
+            waveCounterText.text = $"Wave: {currentWave}/{maxWaves}";
     }
 
     private void SpawnEnemy()
@@ -87,14 +144,18 @@ public class Spawner : MonoBehaviour
         int index = Random.Range(0, enemyPrefab.Length);
         GameObject prefabToSpawn = enemyPrefab[index];
         Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
+        enemiesAlive++;
+        waveStarted = true;
     }
 
-    private IEnumerator StartWave()
+    /*private IEnumerator StartWave()
     {
-        yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
-    }
+        totalEnemiesThisWave = enemiesLeftToSpawn;
+        yield break;
+
+    }*/
 
     private int EnemiesPerWave()
     {

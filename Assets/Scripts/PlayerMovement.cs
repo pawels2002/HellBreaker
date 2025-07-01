@@ -45,6 +45,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastAttackDir = Vector3.forward;
     private Vector3 originalLocalScale;
     private bool IsDead => HealthPlayer.Instance.GetHealth() <= 0;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackClip;
+    [SerializeField] private AudioClip hurtClip;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -211,6 +216,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (_animator != null)
             _animator.SetBool("isHurt", true);
+        if (audioSource != null && hurtClip != null)
+            audioSource.PlayOneShot(hurtClip);
 
         float timer = 0f;
         bool isRed = false;
@@ -246,6 +253,10 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator AttackRoutine(Vector3 attackDir)
     {
         isAttacking = true;
+
+        if (audioSource != null && attackClip != null)
+            audioSource.PlayOneShot(attackClip);
+
 
         // Determine animation direction
         float animAngle = Mathf.Atan2(attackDir.x, attackDir.z) * Mathf.Rad2Deg;

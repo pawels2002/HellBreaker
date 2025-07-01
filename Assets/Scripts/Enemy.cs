@@ -1,4 +1,3 @@
-//using System.Diagnostics;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -17,6 +16,9 @@ public class Enemy : MonoBehaviour
     private Color originalColor;
     private bool isFlashing = false;
 
+    public AudioClip deathClip;
+    private AudioSource audioSource;
+
     public Vector3 CurrentDirection { get; private set; }
 
     private void Start()
@@ -33,6 +35,7 @@ public class Enemy : MonoBehaviour
         {
             originalColor = renderers[0].material.color;
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -106,12 +109,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Die()//
+    private void Die()
     {
         Spawner.onEnemyDestroy.Invoke();
         Money.Instance.AddMoney(prize);
-        Debug.Log($"{gameObject.name} died!");
-        Destroy(gameObject);
+
+        if (audioSource != null && deathClip != null)
+        {
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(deathClip);
+            foreach (var rend in renderers)
+                rend.enabled = false;
+            GetComponent<Collider>().enabled = false;
+            Destroy(gameObject, deathClip.length / audioSource.pitch);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void SetPlayerColor(Color color)

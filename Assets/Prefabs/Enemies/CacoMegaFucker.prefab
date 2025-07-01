@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.5
   prize: 20
-  maxHP: 50
+  maxHP: 150
   damage: 10
   deathClip: {fileID: 8300000, guid: f4bf8327991d88d48b1a20204ddb1096, type: 3}
 --- !u!95 &6909354516273334578

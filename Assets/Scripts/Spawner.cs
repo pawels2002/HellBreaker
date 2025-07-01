@@ -101,7 +101,7 @@ public class Spawner : MonoBehaviour
         else
         {
             Debug.Log("All waves completed!");
-            GameManager.instance.LevelCompleted();
+            GameManager.instance.CompleteLevel();
         }
     }
 

@@ -39,9 +39,6 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        
-
-        Debug.Log("Game Paused, pauseMenu active: " + pauseMenu.activeSelf);
     }
 
     public void ResumeGame()
@@ -49,10 +46,6 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-         // Reset the pause state
-
-         // Resume the game
-        Debug.Log("Game Resumed"); // Log for debugging purposes
     }
     public void QuitGame()
     {
@@ -61,8 +54,8 @@ public class PauseMenu : MonoBehaviour
     }
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f; // Ensure time scale is reset before loading the main menu
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenuScene");
-        isPaused = false; // Reset the pause state
+        isPaused = false;
     }
 }

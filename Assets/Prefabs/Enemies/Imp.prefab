@@ -108,7 +108,7 @@ MonoBehaviour:
   speed: 3
   prize: 5
   maxHP: 200
-  damage: 5
+  damage: 70
   deathClip: {fileID: 8300000, guid: f4bf8327991d88d48b1a20204ddb1096, type: 3}
 --- !u!95 &6909354516273334578
 Animator:

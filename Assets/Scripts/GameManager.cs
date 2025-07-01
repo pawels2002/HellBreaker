@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject gameOverScreen;
+    public GameObject winLevelScreen;
     public int castleHealth = 100;
     public int currentLevel = 1;
     public int maxLevels = 3;
@@ -12,6 +14,8 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            gameOverScreen.SetActive(false);
+            winLevelScreen.SetActive(false);
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -27,11 +31,15 @@ public class GameManager : MonoBehaviour
 
         if (castleHealth <= 0)
         {
-            RestartLevel();
+            LoseGame();
         }
     }
-
-    public void LevelCompleted()
+    public void CompleteLevel()
+    {
+        winLevelScreen.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void NextLevel()
     {
         if (currentLevel < maxLevels)
         {
@@ -44,13 +52,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RestartLevel()
+    public void LoseGame()
     {
-        Debug.Log("Castle destroyed! Restarting level...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0f;
     }
 
-    private void WinGame()
+    public void RetryGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameOverScreen.SetActive(false);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("QUIT!");
+        Application.Quit();
+    }
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
+    public void WinGame()
     {
         Debug.Log("You won the game!");
         SceneManager.LoadScene("MainMenuScene");

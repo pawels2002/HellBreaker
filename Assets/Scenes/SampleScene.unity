@@ -1770,11 +1770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8108ecd1d8f71734788b54a4398c3376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &637157690 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 49200247469826002, guid: 7e5a46dc68ba1eb42b67ecd71ab8316c, type: 3}
-  m_PrefabInstance: {fileID: 6196090642634289465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &637157691 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8934677017062994007, guid: 7e5a46dc68ba1eb42b67ecd71ab8316c, type: 3}
@@ -2017,55 +2012,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793046852}
   m_CullTransparentMesh: 1
---- !u!1 &818627743
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 818627745}
-  - component: {fileID: 818627744}
-  m_Layer: 0
-  m_Name: _GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &818627744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818627743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47d4432a7e017e40995cfcca4931a5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 637157690}
-  winLevelScreen: {fileID: 1223825383}
-  castleHealth: 100
-  currentLevel: 1
-  maxLevels: 3
---- !u!4 &818627745
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818627743}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.70701, y: 0, z: -0.8377}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859972755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,11 +2857,6 @@ Transform:
   - {fileID: 1924435441}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1223825383 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1039823996200416387, guid: 9f18bd80be533034eb72bb8f7046be9b, type: 3}
-  m_PrefabInstance: {fileID: 5115009320584649000}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1223825386 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8459840395689338969, guid: 9f18bd80be533034eb72bb8f7046be9b, type: 3}
@@ -6685,4 +6626,3 @@ SceneRoots:
   - {fileID: 6627593831314848889}
   - {fileID: 9066151635790792555}
   - {fileID: 4136973183241889922}
-  - {fileID: 818627745}

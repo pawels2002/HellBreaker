@@ -4,28 +4,67 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject gameOverScreen;
-    public GameObject winLevelScreen;
+    GameObject gameOverScreen;
+    GameObject winLevelScreen;
     public int castleHealth = 100;
     public int currentLevel = 1;
     public int maxLevels = 3;
+    private bool gameEnded = false;
+
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            gameOverScreen.SetActive(false);
-            winLevelScreen.SetActive(false);
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        AssignSceneUI();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        AssignSceneUI();
+        if (scene.name.StartsWith("Level"))
+        {
+            castleHealth = 100;
+            gameEnded = false;
+            Time.timeScale = 1f;
         }
     }
 
+    private void AssignSceneUI()
+    {
+        gameOverScreen = GameObject.Find("GameOverPanel");
+        winLevelScreen = GameObject.Find("WinLevelScreen");
+
+        if (gameOverScreen != null)
+            gameOverScreen.SetActive(false);
+        if (winLevelScreen != null)
+            winLevelScreen.SetActive(false);
+    }
+
+
     public void CastleTakeDamage(int damage)
     {
+        
+        if (gameEnded || castleHealth <= 0)
+            return;
+
         castleHealth -= damage;
         Debug.Log($"Castle health: {castleHealth}");
 
@@ -54,15 +93,20 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame()
     {
-        gameOverScreen.SetActive(true);
+        if (gameEnded)
+            return;
+        gameEnded = true;
+        if (gameOverScreen != null)
+            gameOverScreen.SetActive(true);
         Time.timeScale = 0f;
     }
 
     public void RetryGame()
     {
+        gameEnded = false;
+        castleHealth = 100;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        gameOverScreen.SetActive(false);
     }
     public void QuitGame()
     {
